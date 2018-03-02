@@ -5,13 +5,13 @@ import (
 )
 
 func TestRunReadWriteTest(t *testing.T) {
-	RunReadWriteTest(t, true, NewBasic)
+	RunReadWriteTest(t, true, NewSlice)
 }
 
 func TestNewMeorySliceCreatesMemoryWithCorrectSize(t *testing.T) {
-	RunSizeTest(t, NewBasic)
+	RunSizeTest(t, NewSlice)
 }
 
 func TestBoundsChceking(t *testing.T) {
-	RunBoundsTests(t, NewBasic)
+	RunBoundsTests(t, NewSlice)
 }
