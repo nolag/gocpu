@@ -3,10 +3,20 @@ package registers
 import (
 	"math"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var anyValue = uint32(0xFEEDBAD1)
 var anyValueF = math.Float32frombits(anyValue)
+
+func TestUintRegesterCanWrite(t *testing.T) {
+	// Given
+	reg := UintRegister32(anyValue)
+
+	// When - Then
+	assert.True(t, reg.CanWrite(), "Uint registers can write")
+}
 
 func TestUintRegisterGetsValue(t *testing.T) {
 	// Given
@@ -21,12 +31,20 @@ func TestUintRegisterSetsValue(t *testing.T) {
 	reg := UintRegister32(0)
 	reg2 := UintRegister32(0)
 
-	set := func() (bool, error) { return reg.SetValue32(anyValue) }
-	set2 := func() (bool, error) { return reg2.SetValue32F(anyValueF) }
+	set := func() error { return reg.SetValue32(anyValue) }
+	set2 := func() error { return reg2.SetValue32F(anyValueF) }
 
 	// When - Then
 	assertSet(t, &reg, set)
 	assertSet(t, &reg2, set2)
+}
+
+func TestFloatRegesterCanWrite(t *testing.T) {
+	// Given
+	reg := FloatRegister32(anyValueF)
+
+	// When - Then
+	assert.True(t, reg.CanWrite(), "Float registers can write")
 }
 
 func TestFloatRegisterGetsValue(t *testing.T) {
@@ -42,12 +60,20 @@ func TestFloatRegisterSetsValue(t *testing.T) {
 	reg := FloatRegister32(0)
 	reg2 := FloatRegister32(0)
 
-	set := func() (bool, error) { return reg.SetValue32(anyValue) }
-	set2 := func() (bool, error) { return reg2.SetValue32F(anyValueF) }
+	set := func() error { return reg.SetValue32(anyValue) }
+	set2 := func() error { return reg2.SetValue32F(anyValueF) }
 
 	// When - Then
 	assertSet(t, &reg, set)
 	assertSet(t, &reg2, set2)
+}
+
+func TestFloatRegesterCanNotWrite(t *testing.T) {
+	// Given
+	reg := ZeroRegister32{}
+
+	// When - Then
+	assert.False(t, reg.CanWrite(), "Zero registers can not write")
 }
 
 func TestZeroRegisterGetsZeroValue(t *testing.T) {
@@ -72,14 +98,10 @@ func TestZeroRegisterDoesNotSetValue(t *testing.T) {
 	reg := ZeroRegister32{}
 
 	// When
-	wasSet, err := reg.SetValue32(anyValue)
-	wasSetF, errF := reg.SetValue32F(anyValueF)
+	err := reg.SetValue32(anyValue)
+	errF := reg.SetValue32F(anyValueF)
 
-	// When - Then
-	if wasSet || wasSetF {
-		t.Fatalf("Value must not be set for zero register")
-	}
-
+	// Then
 	assertGetValue(t, &reg, 0)
 	if err != nil || errF != nil {
 		t.Fatalf("Supplied registers must not return an error")
@@ -113,18 +135,13 @@ func assertGetValue(t *testing.T, reg Register32, expected uint32) {
 	}
 }
 
-type runSet func() (bool, error)
+type runSet func() error
 
 func assertSet(t *testing.T, reg Register32, setToAnyValue runSet) {
-	// When - Then
-	wasSet, err := setToAnyValue()
-	if !wasSet {
-		t.Fatalf("Value must be set for basic registers")
-	}
+	// When
+	err := setToAnyValue()
 
-	if err != nil {
-		t.Fatalf("Supplied registers must not return an error")
-	}
-
+	// Then
+	assert.Equal(t, nil, err, "Supplied registers must not return an error")
 	assertGetValue(t, reg, anyValue)
 }
