@@ -14,8 +14,8 @@ type Processor interface {
 	Step() error
 }
 
-// ProcessorBasics32 provides the basics in a 32 bit processor
-type ProcessorBasics32 interface {
+// ProcessorCore32 provides the basics in a 32 bit processor
+type ProcessorCore32 interface {
 	// DecementPc32 decrements the value of the PC by amount
 	DecementPc32(amount uint32) error
 
@@ -51,4 +51,10 @@ type ProcessorBasics32 interface {
 type InstructionRunner32 interface {
 	// Runs a single 32 bit instrution, without incrementing the PC
 	RunInstruction32(instruction uint32) error
+}
+
+// Callback is a CPU callback
+type Callback struct {
+	Action    func()
+	Describer interface{}
 }

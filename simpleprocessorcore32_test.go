@@ -16,9 +16,9 @@ var anyMemory = memory.NewSlice(100)
 var anyAmount = uint32(102)
 var anyReg = make([]registers.Register32, 5)
 
-func TestSimpleProcessorBasics32PcValues(t *testing.T) {
+func TestSimpleProcessorCore32PcValues(t *testing.T) {
 	// Given
-	basics := SimpleProcessorBasics32{anyEndianness, anyMemory, anyReg, anyPc}
+	basics := SimpleProcessorCore32{anyEndianness, anyMemory, anyReg, anyPc}
 	anyOtherPc := uint32(0xBEEFF00D)
 
 	// When
@@ -41,9 +41,9 @@ func TestSimpleProcessorBasics32PcValues(t *testing.T) {
 	assert.Equal(t, anyOtherPc, basics.Pc, "Pc not setting")
 }
 
-func TestSimpleProcessorBasics32SimpleGetSetValues(t *testing.T) {
+func TestSimpleProcessorCore32SimpleGetSetValues(t *testing.T) {
 	// Given
-	basics := SimpleProcessorBasics32{anyEndianness, anyMemory, anyReg, anyPc}
+	basics := SimpleProcessorCore32{anyEndianness, anyMemory, anyReg, anyPc}
 	otherEndianness := binary.LittleEndian
 	otherMem := memory.NewSlice(1)
 	otherReg := make([]registers.Register32, 1)
