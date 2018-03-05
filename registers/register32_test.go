@@ -31,8 +31,8 @@ func TestUintRegisterSetsValue(t *testing.T) {
 	reg := UintRegister32(0)
 	reg2 := UintRegister32(0)
 
-	set := func() error { return reg.SetValue32(anyValue) }
-	set2 := func() error { return reg2.SetValue32F(anyValueF) }
+	set := func() { reg.SetValue32(anyValue) }
+	set2 := func() { reg2.SetValue32F(anyValueF) }
 
 	// When - Then
 	assertSet(t, &reg, set)
@@ -60,8 +60,8 @@ func TestFloatRegisterSetsValue(t *testing.T) {
 	reg := FloatRegister32(0)
 	reg2 := FloatRegister32(0)
 
-	set := func() error { return reg.SetValue32(anyValue) }
-	set2 := func() error { return reg2.SetValue32F(anyValueF) }
+	set := func() { reg.SetValue32(anyValue) }
+	set2 := func() { reg2.SetValue32F(anyValueF) }
 
 	// When - Then
 	assertSet(t, &reg, set)
@@ -81,16 +81,12 @@ func TestZeroRegisterGetsZeroValue(t *testing.T) {
 	reg := ZeroRegister32{}
 
 	// When
-	val, err := reg.Value32()
-	valf, errF := reg.Value32F()
+	val := reg.Value32()
+	valF := reg.Value32F()
 
 	// When - Then
-	assertValue(t, val, 0)
-	assertValueF(t, valf, 0.0)
-
-	if err != nil || errF != nil {
-		t.Fatalf("Supplied registers must not return an error")
-	}
+	assert.Equal(t, uint32(0), val, "Zero register must return 0")
+	assert.Equal(t, float32(0.0), valF, "Zero register must return 0")
 }
 
 func TestZeroRegisterDoesNotSetValue(t *testing.T) {
@@ -98,50 +94,30 @@ func TestZeroRegisterDoesNotSetValue(t *testing.T) {
 	reg := ZeroRegister32{}
 
 	// When
-	err := reg.SetValue32(anyValue)
-	errF := reg.SetValue32F(anyValueF)
+	reg.SetValue32(anyValue)
+	reg.SetValue32F(anyValueF)
 
 	// Then
 	assertGetValue(t, &reg, 0)
-	if err != nil || errF != nil {
-		t.Fatalf("Supplied registers must not return an error")
-	}
 
-}
-
-func assertValue(t *testing.T, actual uint32, expected uint32) {
-	if actual != expected {
-		t.Fatalf("Expected: 0x%x, Got: 0x%x", expected, actual)
-	}
-}
-
-func assertValueF(t *testing.T, actual float32, expected float32) {
-	if actual != expected {
-		t.Fatalf("Expected: %v, Got: %v", expected, actual)
-	}
 }
 
 func assertGetValue(t *testing.T, reg Register32, expected uint32) {
 	// When
-	value, err := reg.Value32()
-	valueF, errF := reg.Value32F()
+	value := reg.Value32()
+	valueF := reg.Value32F()
 
 	// Then
-	assertValue(t, value, expected)
-	assertValueF(t, valueF, math.Float32frombits(expected))
-
-	if err != nil || errF != nil {
-		t.Fatalf("Supplied registers must not return an error")
-	}
+	assert.Equal(t, expected, value, "Wrong value for uint32")
+	assert.Equal(t, math.Float32frombits(expected), valueF, "Wrong value for float32")
 }
 
-type runSet func() error
+type runSet func()
 
 func assertSet(t *testing.T, reg Register32, setToAnyValue runSet) {
 	// When
-	err := setToAnyValue()
+	setToAnyValue()
 
 	// Then
-	assert.Equal(t, nil, err, "Supplied registers must not return an error")
 	assertGetValue(t, reg, anyValue)
 }
