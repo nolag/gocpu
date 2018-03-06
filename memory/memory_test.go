@@ -1,4 +1,4 @@
-package memory
+package memory_test
 
 import (
 	"encoding/binary"
@@ -6,6 +6,8 @@ import (
 	"math"
 	"testing"
 
+	"github.com/nolag/gocpu/memory"
+	"github.com/nolag/gocpu/mock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,7 +24,7 @@ func TestAccessViolationErrorMessage(t *testing.T) {
 	anyNumber := uint64(123)
 	anyOtherNumber := uint64(323)
 	anyWasRead := true
-	err := AccessViolationError{anyNumber, anyOtherNumber, anyWasRead}
+	err := memory.AccessViolationError{Location: anyNumber, NumBytes: anyOtherNumber, WasRead: anyWasRead}
 
 	// When
 	msg := err.Error()
@@ -32,114 +34,114 @@ func TestAccessViolationErrorMessage(t *testing.T) {
 }
 
 func TestReadFloat32(t *testing.T) {
-	readFloat32 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
-		return ReadFloat32(memory, byteOrder, index)
+	readFloat32 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadFloat32(mem, byteOrder, index)
 	}
 
-	memory := Setup32BitMockMemory(t)
-	RunMemoryReadTest(t, memory, any32BitFloat, readFloat32, "read flaot32")
+	mem := Setup32BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any32BitFloat, readFloat32, "read flaot32")
 }
 
 func TestReadFloat64(t *testing.T) {
-	readFloat64 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
-		return ReadFloat64(memory, byteOrder, index)
+	readFloat64 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadFloat64(mem, byteOrder, index)
 	}
 
-	memory := Setup64BitMockMemory(t)
-	RunMemoryReadTest(t, memory, any64BitFloat, readFloat64, "Read float64")
+	mem := Setup64BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any64BitFloat, readFloat64, "Read float64")
 }
 
 func TestReadUint16(t *testing.T) {
-	readUint16 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
-		return ReadUint16(memory, byteOrder, index)
+	readUint16 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadUint16(mem, byteOrder, index)
 	}
 
-	memory := Setup16BitMockMemory(t)
-	RunMemoryReadTest(t, memory, any16BitUint, readUint16, "Read uint16")
+	mem := Setup16BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any16BitUint, readUint16, "Read uint16")
 }
 
 func TestReadUint32(t *testing.T) {
-	readUint32 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
-		return ReadUint32(memory, byteOrder, index)
+	readUint32 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadUint32(mem, byteOrder, index)
 	}
 
-	memory := Setup32BitMockMemory(t)
-	RunMemoryReadTest(t, memory, any32BitUint, readUint32, "Read uint32")
+	mem := Setup32BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any32BitUint, readUint32, "Read uint32")
 }
 
 func TestReadUint64(t *testing.T) {
-	readUint64 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
-		return ReadUint64(memory, byteOrder, index)
+	readUint64 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadUint64(mem, byteOrder, index)
 	}
 
-	memory := Setup64BitMockMemory(t)
-	RunMemoryReadTest(t, memory, any64BitUint, readUint64, "Read uint64")
+	mem := Setup64BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any64BitUint, readUint64, "Read uint64")
 }
 
 func TestWriteUint16(t *testing.T) {
 	// Given
-	writeUint16 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) error {
-		return WriteUint16(memory, byteOrder, any16BitUint, index)
+	writeUint16 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteUint16(mem, byteOrder, any16BitUint, index)
 	}
 
-	memory := Setup16BitMockMemory(t)
+	mem := Setup16BitMockMemory(t)
 
 	// When - Then
-	RunMemoryWriteTest(t, memory, writeUint16, "Write uint16")
+	RunMemoryWriteTest(t, mem, writeUint16, "Write uint16")
 }
 
 func TestWriteFloat32(t *testing.T) {
 	// Given
-	writeFloat32 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) error {
-		return WriteFloat32(memory, byteOrder, any32BitFloat, index)
+	writeFloat32 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteFloat32(mem, byteOrder, any32BitFloat, index)
 	}
 
-	memory := Setup32BitMockMemory(t)
+	mem := Setup32BitMockMemory(t)
 
 	// When - Then
-	RunMemoryWriteTest(t, memory, writeFloat32, "Write float32")
+	RunMemoryWriteTest(t, mem, writeFloat32, "Write float32")
 }
 
 func TestWriteFloat64(t *testing.T) {
 	// Given
-	writeFloat64 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) error {
-		return WriteFloat64(memory, byteOrder, any64BitFloat, index)
+	writeFloat64 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteFloat64(mem, byteOrder, any64BitFloat, index)
 	}
 
-	memory := Setup64BitMockMemory(t)
+	mem := Setup64BitMockMemory(t)
 
 	// When - Then
-	RunMemoryWriteTest(t, memory, writeFloat64, "Write float64")
+	RunMemoryWriteTest(t, mem, writeFloat64, "Write float64")
 }
 
 func TestWriteUint32(t *testing.T) {
 	// Given
-	writeUint32 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) error {
-		return WriteUint32(memory, byteOrder, any32BitUint, index)
+	writeUint32 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteUint32(mem, byteOrder, any32BitUint, index)
 	}
 
-	memory := Setup32BitMockMemory(t)
+	mem := Setup32BitMockMemory(t)
 
 	// When - Then
-	RunMemoryWriteTest(t, memory, writeUint32, "Write uint32")
+	RunMemoryWriteTest(t, mem, writeUint32, "Write uint32")
 }
 
 func TestWriteUint64(t *testing.T) {
 	// Given
-	writeUint64 := func(memory Memory, byteOrder binary.ByteOrder, index uint64) error {
-		return WriteUint64(memory, byteOrder, any64BitUint, index)
+	writeUint64 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteUint64(mem, byteOrder, any64BitUint, index)
 	}
 
-	memory := Setup64BitMockMemory(t)
+	mem := Setup64BitMockMemory(t)
 
 	// When - Then
-	RunMemoryWriteTest(t, memory, writeUint64, "Write uint64")
+	RunMemoryWriteTest(t, mem, writeUint64, "Write uint64")
 }
 
-type TestMemRead func(memory Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error)
-type TestMemWrite func(memory Memory, byteOrder binary.ByteOrder, index uint64) error
+type TestMemRead func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error)
+type TestMemWrite func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error
 
-func RunMemoryReadTest(t *testing.T, goodMem Memory, expected interface{}, test TestMemRead, testing string) {
+func RunMemoryReadTest(t *testing.T, goodMem memory.Memory, expected interface{}, test TestMemRead, testing string) {
 	// Given
 	badMem := SetupFailMemory(t)
 
@@ -153,7 +155,7 @@ func RunMemoryReadTest(t *testing.T, goodMem Memory, expected interface{}, test 
 	assert.NoError(t, ok, "Unexpected error on ", testing)
 }
 
-func RunMemoryWriteTest(t *testing.T, goodMem *MockMemory, test TestMemWrite, testing string) {
+func RunMemoryWriteTest(t *testing.T, goodMem *mock.Memory, test TestMemWrite, testing string) {
 	// Given
 	expected := goodMem.Data
 	goodMem.Data = nil
@@ -172,73 +174,25 @@ func RunMemoryWriteTest(t *testing.T, goodMem *MockMemory, test TestMemWrite, te
 	}
 }
 
-func Setup16BitMockMemory(t *testing.T) *MockMemory {
+func Setup16BitMockMemory(t *testing.T) *mock.Memory {
 	data := make([]byte, 2)
 	anyEndianness.PutUint16(data, any16BitUint)
-	return &MockMemory{t, data, false}
+	return &mock.Memory{Data: data, ExpectedIndex: anyIndex, Fail: nil, T: t}
 }
 
-func Setup32BitMockMemory(t *testing.T) *MockMemory {
+func Setup32BitMockMemory(t *testing.T) *mock.Memory {
 	data := make([]byte, 4)
 	anyEndianness.PutUint32(data, any32BitUint)
-	return &MockMemory{t, data, false}
+	return &mock.Memory{Data: data, ExpectedIndex: anyIndex, Fail: nil, T: t}
 }
 
-func Setup64BitMockMemory(t *testing.T) *MockMemory {
+func Setup64BitMockMemory(t *testing.T) *mock.Memory {
 	data := make([]byte, 8)
 	anyEndianness.PutUint64(data, any64BitUint)
-	return &MockMemory{t, data, false}
+	return &mock.Memory{Data: data, ExpectedIndex: anyIndex, Fail: nil, T: t}
 }
 
-func SetupFailMemory(t *testing.T) *MockMemory {
+func SetupFailMemory(t *testing.T) *mock.Memory {
 	data := make([]byte, 1)
-	return &MockMemory{t, data, true}
-}
-
-type MockMemory struct {
-	T    *testing.T
-	Data []byte
-	Fail bool
-}
-
-func (memory *MockMemory) ReadOneByte(index uint64) (byte, error) {
-	assert.Equal(memory.T, anyIndex, index, "Wrong index in read one byte")
-	if memory.Fail {
-		return 0, errAny
-	}
-
-	return memory.Data[0], nil
-}
-
-func (memory *MockMemory) ReadRaw(startIndex uint64, numBytes uint64) (data []byte, backed bool, err error) {
-	assert.Equal(memory.T, anyIndex, startIndex, "Wrong index used")
-	if memory.Fail {
-		return nil, false, errAny
-	}
-
-	return memory.Data, false, nil
-}
-
-func (memory *MockMemory) Size() uint64 {
-	return uint64(len(memory.Data))
-}
-
-func (memory *MockMemory) WriteOneByte(val byte, index uint64) error {
-	assert.Equal(memory.T, anyIndex, index, "Wrong index used")
-	if memory.Fail {
-		return errAny
-	}
-
-	memory.Data[0] = val
-	return nil
-}
-
-func (memory *MockMemory) WriteRaw(data []byte, startIndex uint64) error {
-	assert.Equal(memory.T, anyIndex, startIndex, "Wrong index used")
-	if memory.Fail {
-		return errAny
-	}
-
-	memory.Data = data
-	return nil
+	return &mock.Memory{Data: data, ExpectedIndex: anyIndex, Fail: errAny, T: t}
 }

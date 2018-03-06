@@ -1,9 +1,10 @@
-package registers
+package registers_test
 
 import (
 	"math"
 	"testing"
 
+	"github.com/nolag/gocpu/registers"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,7 +13,7 @@ var anyValueF = math.Float32frombits(anyValue)
 
 func TestUintRegesterCanWrite(t *testing.T) {
 	// Given
-	reg := UintRegister32(anyValue)
+	reg := registers.UintRegister32(anyValue)
 
 	// When - Then
 	assert.True(t, reg.CanWrite(), "Uint registers can write")
@@ -20,7 +21,7 @@ func TestUintRegesterCanWrite(t *testing.T) {
 
 func TestUintRegisterGetsValue(t *testing.T) {
 	// Given
-	reg := UintRegister32(anyValue)
+	reg := registers.UintRegister32(anyValue)
 
 	// When - Then
 	assertGetValue(t, &reg, anyValue)
@@ -28,8 +29,8 @@ func TestUintRegisterGetsValue(t *testing.T) {
 
 func TestUintRegisterSetsValue(t *testing.T) {
 	// Given
-	reg := UintRegister32(0)
-	reg2 := UintRegister32(0)
+	reg := registers.UintRegister32(0)
+	reg2 := registers.UintRegister32(0)
 
 	set := func() { reg.SetValue32(anyValue) }
 	set2 := func() { reg2.SetValue32F(anyValueF) }
@@ -41,7 +42,7 @@ func TestUintRegisterSetsValue(t *testing.T) {
 
 func TestFloatRegesterCanWrite(t *testing.T) {
 	// Given
-	reg := FloatRegister32(anyValueF)
+	reg := registers.FloatRegister32(anyValueF)
 
 	// When - Then
 	assert.True(t, reg.CanWrite(), "Float registers can write")
@@ -49,7 +50,7 @@ func TestFloatRegesterCanWrite(t *testing.T) {
 
 func TestFloatRegisterGetsValue(t *testing.T) {
 	// Given
-	reg := FloatRegister32(anyValueF)
+	reg := registers.FloatRegister32(anyValueF)
 
 	// When - Then
 	assertGetValue(t, &reg, anyValue)
@@ -57,8 +58,8 @@ func TestFloatRegisterGetsValue(t *testing.T) {
 
 func TestFloatRegisterSetsValue(t *testing.T) {
 	// Given
-	reg := FloatRegister32(0)
-	reg2 := FloatRegister32(0)
+	reg := registers.FloatRegister32(0)
+	reg2 := registers.FloatRegister32(0)
 
 	set := func() { reg.SetValue32(anyValue) }
 	set2 := func() { reg2.SetValue32F(anyValueF) }
@@ -70,7 +71,7 @@ func TestFloatRegisterSetsValue(t *testing.T) {
 
 func TestFloatRegesterCanNotWrite(t *testing.T) {
 	// Given
-	reg := ZeroRegister32{}
+	reg := registers.ZeroRegister32{}
 
 	// When - Then
 	assert.False(t, reg.CanWrite(), "Zero registers can not write")
@@ -78,7 +79,7 @@ func TestFloatRegesterCanNotWrite(t *testing.T) {
 
 func TestZeroRegisterGetsZeroValue(t *testing.T) {
 	// Given
-	reg := ZeroRegister32{}
+	reg := registers.ZeroRegister32{}
 
 	// When
 	val := reg.Value32()
@@ -91,7 +92,7 @@ func TestZeroRegisterGetsZeroValue(t *testing.T) {
 
 func TestZeroRegisterDoesNotSetValue(t *testing.T) {
 	// Given
-	reg := ZeroRegister32{}
+	reg := registers.ZeroRegister32{}
 
 	// When
 	reg.SetValue32(anyValue)
@@ -102,7 +103,7 @@ func TestZeroRegisterDoesNotSetValue(t *testing.T) {
 
 }
 
-func assertGetValue(t *testing.T, reg Register32, expected uint32) {
+func assertGetValue(t *testing.T, reg registers.Register32, expected uint32) {
 	// When
 	value := reg.Value32()
 	valueF := reg.Value32F()
@@ -114,7 +115,7 @@ func assertGetValue(t *testing.T, reg Register32, expected uint32) {
 
 type runSet func()
 
-func assertSet(t *testing.T, reg Register32, setToAnyValue runSet) {
+func assertSet(t *testing.T, reg registers.Register32, setToAnyValue runSet) {
 	// When
 	setToAnyValue()
 

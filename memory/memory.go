@@ -12,10 +12,10 @@ type Memory interface {
 	// ReadOneByte reads a byte at memory location index
 	ReadOneByte(index uint64) (byte, error)
 
-	/* ReadRaw allows reading from memory starting at startIndex and providing numBytes bytes
-	data is the bytes read
-	backed, when true means that changes made to data will impact the memory stored
-	err is any error that occured */
+	// ReadRaw allows reading from memory starting at startIndex and providing numBytes bytes
+	// data is the bytes read
+	// backed, when true means that changes made to data will impact the memory stored
+	// err is any error that occured
 	ReadRaw(startIndex uint64, numBytes uint64) (data []byte, backed bool, err error)
 
 	// Size in bytes this memory can represent
