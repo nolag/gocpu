@@ -6,16 +6,16 @@ import (
 	"github.com/nolag/gocpu/processor"
 )
 
-// CreateUnexpectedCallback makes a callback that fails when called
-func CreateUnexpectedCallback(t *testing.T, when string) processor.ErrorCallback {
+// NewUnexpectedCallback makes a callback that fails when called
+func NewUnexpectedCallback(t *testing.T, when string) processor.ErrorCallback {
 	return func(err error) error {
 		t.Fatalf("Unexpected callback on %v.", when)
 		return nil
 	}
 }
 
-// CreateUnexpectedInstructionRunner32Callback makes a callback that fails when called
-func CreateUnexpectedInstructionRunner32Callback(t *testing.T, when string) processor.InstructionRunner32 {
+// NewUnexpectedInstructionRunner32Callback makes a callback that fails when called
+func NewUnexpectedInstructionRunner32Callback(t *testing.T, when string) processor.InstructionRunner32 {
 	return unexpectedInstructionRunner32Callback{t, when}
 }
 

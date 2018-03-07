@@ -65,7 +65,7 @@ func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback p
 	memory := &mock.Memory{Data: nil, ExpectedIndex: uint64(processor.Pc.Value32()), Fail: errFail, T: t}
 	processor.Memory = memory
 	processor.MemoryReadFailureCallback = callback
-	processor.InstructionRunner32 = mock.CreateUnexpectedInstructionRunner32Callback(
+	processor.InstructionRunner32 = mock.NewUnexpectedInstructionRunner32Callback(
 		t,
 		"To instruciton runner when error is returned from memory")
 
@@ -87,7 +87,7 @@ func CreateTestFixedLenProcessor32(t *testing.T) (processor.FixedLen32, *mock.In
 	anyMemory := &mock.Memory{Data: data, ExpectedIndex: uint64(anyValue), Fail: nil, T: t}
 	anyRegisters := []registers.Register32{&anyPc}
 	anyCore := processor.Core32{Endianness: anyEndianness, Memory: anyMemory, Registers: anyRegisters, Pc: &anyPc}
-	notCalledErrorCallback := mock.CreateUnexpectedCallback(t, "running instruction with no callback")
+	notCalledErrorCallback := mock.NewUnexpectedCallback(t, "running instruction with no callback")
 	anyRunner := &mock.InstructionRunner32{Core: anyCore, ExpectedError: nil, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, T: t}
 	processor := processor.FixedLen32{Core32: anyCore, InstructionRunner32: anyRunner, MemoryReadFailureCallback: notCalledErrorCallback}
 	return processor, anyRunner
