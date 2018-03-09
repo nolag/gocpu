@@ -13,7 +13,7 @@ type FixedLen32 struct {
 
 // Step runs the next instruction, returns error to indicate an unhandeled exception
 func (processor *FixedLen32) Step() error {
-	val, err := memory.ReadUint32(processor.Memory, processor.Endianness, uint64(processor.Pc.Value32()))
+	val, err := memory.ReadUint32(processor.Memory, processor.Endianness, uint64(processor.Pc.Uint32Value()))
 	if err != nil {
 		callback := processor.MemoryReadFailureCallback
 		if callback != nil {
@@ -23,7 +23,7 @@ func (processor *FixedLen32) Step() error {
 		return err
 	}
 
-	processor.Pc.SetValue32(processor.Pc.Value32() + 4)
+	processor.Pc.SetFromUint32(processor.Pc.Uint32Value() + 4)
 	processor.RunInstruction32(val)
 	return nil
 }

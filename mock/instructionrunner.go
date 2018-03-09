@@ -21,7 +21,7 @@ type InstructionRunner32 struct {
 // RunInstruction32 runs a single 32 bit instrution, without incrementing the PC
 func (runner *InstructionRunner32) RunInstruction32(instruction uint32) error {
 	assert.Equal(runner.T, runner.ExpectedValue, instruction, "Wrong instruction passed to runner")
-	assert.Equal(runner.T, runner.ExpectedPc, runner.Core.Pc.Value32(), "Wrong PC at time of")
+	assert.Equal(runner.T, runner.ExpectedPc, runner.Core.Pc.Uint32Value(), "Wrong PC at time of")
 	runner.NumTimesRun++
 	return runner.ExpectedError
 }

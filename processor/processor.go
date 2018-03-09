@@ -19,8 +19,8 @@ type Processor interface {
 type Core32 struct {
 	Endianness binary.ByteOrder
 	Memory     memory.Memory
-	Registers  []registers.Register32
-	Pc         registers.Register32
+	Registers  []registers.ThirtyTwoBitRegister
+	Pc         registers.ThirtyTwoBitRegister
 }
 
 // InstructionRunner32 can run a 32-bit instruction

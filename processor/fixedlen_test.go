@@ -14,13 +14,13 @@ import (
 func TestFixedLen32IncrementsPc(t *testing.T) {
 	// Given
 	processor, _ := CreateTestFixedLenProcessor32(t)
-	pcBefore := processor.Pc.Value32()
+	pcBefore := processor.Pc.Uint32Value()
 
 	// When
 	err := processor.Step()
 
 	// Then
-	assert.Equal(t, pcBefore+4, processor.Pc.Value32(), "PC not incremented")
+	assert.Equal(t, pcBefore+4, processor.Pc.Uint32Value(), "PC not incremented")
 	assert.NoError(t, err, "Step must not return an error if none was returned to it")
 }
 
@@ -62,7 +62,7 @@ func TestFixedLen32ErrorReturnedFromMemoryWithNoCallback(t *testing.T) {
 func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback processor.ErrorCallback) {
 	// Given
 	processor, runner := CreateTestFixedLenProcessor32(t)
-	memory := &mock.Memory{Data: nil, ExpectedIndex: uint64(processor.Pc.Value32()), Fail: errFail, T: t}
+	memory := &mock.Memory{Data: nil, ExpectedIndex: uint64(processor.Pc.Uint32Value()), Fail: errFail, T: t}
 	processor.Memory = memory
 	processor.MemoryReadFailureCallback = callback
 	processor.InstructionRunner32 = mock.NewUnexpectedInstructionRunner32Callback(
@@ -80,12 +80,12 @@ func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback p
 func CreateTestFixedLenProcessor32(t *testing.T) (processor.FixedLen32, *mock.InstructionRunner32) {
 	anyValue := uint32(500)
 	anyOtherValue := uint32(0xF00DBEEF)
-	anyPc := registers.UintRegister32(anyValue)
+	anyPc := registers.Uint32Register(anyValue)
 	data := make([]byte, 4)
 	anyEndianness := binary.BigEndian
 	anyEndianness.PutUint32(data, anyOtherValue)
 	anyMemory := &mock.Memory{Data: data, ExpectedIndex: uint64(anyValue), Fail: nil, T: t}
-	anyRegisters := []registers.Register32{&anyPc}
+	anyRegisters := []registers.ThirtyTwoBitRegister{&anyPc}
 	anyCore := processor.Core32{Endianness: anyEndianness, Memory: anyMemory, Registers: anyRegisters, Pc: &anyPc}
 	notCalledErrorCallback := mock.NewUnexpectedCallback(t, "running instruction with no callback")
 	anyRunner := &mock.InstructionRunner32{Core: anyCore, ExpectedError: nil, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, T: t}
