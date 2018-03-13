@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var any8BitUint = uint8(0xFA)
 var any16BitUint = uint16(0xBEEF)
 var any32BitUint = uint32(0xC001BABE)
 var any32BitFloat = math.Float32frombits(any32BitUint)
@@ -51,6 +52,15 @@ func TestReadFloat64(t *testing.T) {
 	RunMemoryReadTest(t, mem, any64BitFloat, readFloat64, "Read float64")
 }
 
+func TestReadUint18(t *testing.T) {
+	readUint8 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
+		return memory.ReadUint8(mem, byteOrder, index)
+	}
+
+	mem := Setup8BitMockMemory(t)
+	RunMemoryReadTest(t, mem, any8BitUint, readUint8, "Read uint8")
+}
+
 func TestReadUint16(t *testing.T) {
 	readUint16 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) (interface{}, error) {
 		return memory.ReadUint16(mem, byteOrder, index)
@@ -76,6 +86,18 @@ func TestReadUint64(t *testing.T) {
 
 	mem := Setup64BitMockMemory(t)
 	RunMemoryReadTest(t, mem, any64BitUint, readUint64, "Read uint64")
+}
+
+func TestWriteUint8(t *testing.T) {
+	// Given
+	writeUint8 := func(mem memory.Memory, byteOrder binary.ByteOrder, index uint64) error {
+		return memory.WriteUint8(mem, byteOrder, any8BitUint, index)
+	}
+
+	mem := Setup8BitMockMemory(t)
+
+	// When - Then
+	RunMemoryWriteTest(t, mem, writeUint8, "Write uint8")
 }
 
 func TestWriteUint16(t *testing.T) {
@@ -172,6 +194,11 @@ func RunMemoryWriteTest(t *testing.T, goodMem *mock.Memory, test TestMemWrite, t
 	for index, val := range expected {
 		assert.Equal(t, val, goodMem.Data[index], "Wong value at index %v %v", index, testing)
 	}
+}
+
+func Setup8BitMockMemory(t *testing.T) *mock.Memory {
+	data := []byte{any8BitUint}
+	return &mock.Memory{Data: data, ExpectedIndex: anyIndex, Fail: nil, T: t}
 }
 
 func Setup16BitMockMemory(t *testing.T) *mock.Memory {

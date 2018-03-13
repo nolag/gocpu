@@ -6,9 +6,9 @@ package registers
 
 // SixteenBitRegister represents a register holding the described number of bits.
 type SixteenBitRegister interface {
-	// SetFromIntName sets the value held by this register.
+	// SetFromUint16 sets the value held by this register.
 	SetFromUint16(value uint16)
 
-	// Uint16Value gets the value held by this register
-	Uint16Value() uint16
+	// ValueAsUint16 gets the value held by this register
+	ValueAsUint16() uint16
 }

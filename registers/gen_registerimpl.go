@@ -4,16 +4,16 @@
 
 package registers
 
-// Uint8Register is the register for the backing int
-type Uint8Register uint8
+// RegisterUint8 is the register for the backing int
+type RegisterUint8 uint8
 
-// SetFromUint8 sets the 32 bit value held by this register.
-func (register *Uint8Register) SetFromUint8(value uint8) {
-	*register = Uint8Register(value)
+// SetFromUint8 does nothing for the zero register.
+func (register *RegisterUint8) SetFromUint8(value uint8) {
+	*register = RegisterUint8(value)
 }
 
-// Uint8Value gets the value held by this register
-func (register *Uint8Register) Uint8Value() uint8 {
+// ValueAsUint8 gets the value held by this register
+func (register *RegisterUint8) ValueAsUint8() uint8 {
 	return uint8(*register)
 }
 
@@ -21,21 +21,21 @@ func (register *Uint8Register) Uint8Value() uint8 {
 func (register ZeroRegister) SetFromUint8(value uint8) {
 }
 
-// Uint8Value gets the value held by this register
-func (register ZeroRegister) Uint8Value() uint8 {
+// ValueAsUint8 gets the value held by this register
+func (register ZeroRegister) ValueAsUint8() uint8 {
 	return 0
 }
 
-// Uint16Register is the register for the backing int
-type Uint16Register uint16
+// RegisterUint16 is the register for the backing int
+type RegisterUint16 uint16
 
-// SetFromUint16 sets the 32 bit value held by this register.
-func (register *Uint16Register) SetFromUint16(value uint16) {
-	*register = Uint16Register(value)
+// SetFromUint16 does nothing for the zero register.
+func (register *RegisterUint16) SetFromUint16(value uint16) {
+	*register = RegisterUint16(value)
 }
 
-// Uint16Value gets the value held by this register
-func (register *Uint16Register) Uint16Value() uint16 {
+// ValueAsUint16 gets the value held by this register
+func (register *RegisterUint16) ValueAsUint16() uint16 {
 	return uint16(*register)
 }
 
@@ -43,21 +43,21 @@ func (register *Uint16Register) Uint16Value() uint16 {
 func (register ZeroRegister) SetFromUint16(value uint16) {
 }
 
-// Uint16Value gets the value held by this register
-func (register ZeroRegister) Uint16Value() uint16 {
+// ValueAsUint16 gets the value held by this register
+func (register ZeroRegister) ValueAsUint16() uint16 {
 	return 0
 }
 
-// Uint32Register is the register for the backing int
-type Uint32Register uint32
+// RegisterUint32 is the register for the backing int
+type RegisterUint32 uint32
 
-// SetFromUint32 sets the 32 bit value held by this register.
-func (register *Uint32Register) SetFromUint32(value uint32) {
-	*register = Uint32Register(value)
+// SetFromUint32 does nothing for the zero register.
+func (register *RegisterUint32) SetFromUint32(value uint32) {
+	*register = RegisterUint32(value)
 }
 
-// Uint32Value gets the value held by this register
-func (register *Uint32Register) Uint32Value() uint32 {
+// ValueAsUint32 gets the value held by this register
+func (register *RegisterUint32) ValueAsUint32() uint32 {
 	return uint32(*register)
 }
 
@@ -65,21 +65,21 @@ func (register *Uint32Register) Uint32Value() uint32 {
 func (register ZeroRegister) SetFromUint32(value uint32) {
 }
 
-// Uint32Value gets the value held by this register
-func (register ZeroRegister) Uint32Value() uint32 {
+// ValueAsUint32 gets the value held by this register
+func (register ZeroRegister) ValueAsUint32() uint32 {
 	return 0
 }
 
-// Uint64Register is the register for the backing int
-type Uint64Register uint64
+// RegisterUint64 is the register for the backing int
+type RegisterUint64 uint64
 
-// SetFromUint64 sets the 32 bit value held by this register.
-func (register *Uint64Register) SetFromUint64(value uint64) {
-	*register = Uint64Register(value)
+// SetFromUint64 does nothing for the zero register.
+func (register *RegisterUint64) SetFromUint64(value uint64) {
+	*register = RegisterUint64(value)
 }
 
-// Uint64Value gets the value held by this register
-func (register *Uint64Register) Uint64Value() uint64 {
+// ValueAsUint64 gets the value held by this register
+func (register *RegisterUint64) ValueAsUint64() uint64 {
 	return uint64(*register)
 }
 
@@ -87,21 +87,21 @@ func (register *Uint64Register) Uint64Value() uint64 {
 func (register ZeroRegister) SetFromUint64(value uint64) {
 }
 
-// Uint64Value gets the value held by this register
-func (register ZeroRegister) Uint64Value() uint64 {
+// ValueAsUint64 gets the value held by this register
+func (register ZeroRegister) ValueAsUint64() uint64 {
 	return 0
 }
 
-// Float32Register is the register for the backing int
-type Float32Register float32
+// RegisterFloat32 is the register for the backing int
+type RegisterFloat32 float32
 
-// SetFromFloat32 sets the 32 bit value held by this register.
-func (register *Float32Register) SetFromFloat32(value float32) {
-	*register = Float32Register(value)
+// SetFromFloat32 does nothing for the zero register.
+func (register *RegisterFloat32) SetFromFloat32(value float32) {
+	*register = RegisterFloat32(value)
 }
 
-// Float32Value gets the value held by this register
-func (register *Float32Register) Float32Value() float32 {
+// ValueAsFloat32 gets the value held by this register
+func (register *RegisterFloat32) ValueAsFloat32() float32 {
 	return float32(*register)
 }
 
@@ -109,21 +109,21 @@ func (register *Float32Register) Float32Value() float32 {
 func (register ZeroRegister) SetFromFloat32(value float32) {
 }
 
-// Float32Value gets the value held by this register
-func (register ZeroRegister) Float32Value() float32 {
+// ValueAsFloat32 gets the value held by this register
+func (register ZeroRegister) ValueAsFloat32() float32 {
 	return 0
 }
 
-// Float64Register is the register for the backing int
-type Float64Register float64
+// RegisterFloat64 is the register for the backing int
+type RegisterFloat64 float64
 
-// SetFromFloat64 sets the 32 bit value held by this register.
-func (register *Float64Register) SetFromFloat64(value float64) {
-	*register = Float64Register(value)
+// SetFromFloat64 does nothing for the zero register.
+func (register *RegisterFloat64) SetFromFloat64(value float64) {
+	*register = RegisterFloat64(value)
 }
 
-// Float64Value gets the value held by this register
-func (register *Float64Register) Float64Value() float64 {
+// ValueAsFloat64 gets the value held by this register
+func (register *RegisterFloat64) ValueAsFloat64() float64 {
 	return float64(*register)
 }
 
@@ -131,7 +131,7 @@ func (register *Float64Register) Float64Value() float64 {
 func (register ZeroRegister) SetFromFloat64(value float64) {
 }
 
-// Float64Value gets the value held by this register
-func (register ZeroRegister) Float64Value() float64 {
+// ValueAsFloat64 gets the value held by this register
+func (register ZeroRegister) ValueAsFloat64() float64 {
 	return 0
 }

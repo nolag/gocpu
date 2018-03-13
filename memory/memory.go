@@ -58,7 +58,12 @@ func ReadFloat64(memory Memory, byteOrder binary.ByteOrder, index uint64) (data 
 	return math.Float64frombits(val), err
 }
 
-// ReadUint16 reads a uint32 at memory location index
+// ReadUint8 reads a uint8 at memory location index, it is here for compleation, but is the same as memory.ReadOneByte(index)
+func ReadUint8(memory Memory, byteOrder binary.ByteOrder, index uint64) (data uint8, err error) {
+	return memory.ReadOneByte(index)
+}
+
+// ReadUint16 reads a uint16 at memory location index
 func ReadUint16(memory Memory, byteOrder binary.ByteOrder, index uint64) (data uint16, err error) {
 	raw, _, err := memory.ReadRaw(index, 2)
 	if err != nil {
@@ -88,31 +93,36 @@ func ReadUint64(memory Memory, byteOrder binary.ByteOrder, index uint64) (data u
 	return byteOrder.Uint64(raw), nil
 }
 
-// WriteFloat32 reads a float32 at memory location index
+// WriteFloat32 writes a float32 at memory location index
 func WriteFloat32(memory Memory, byteOrder binary.ByteOrder, val float32, index uint64) error {
 	return WriteUint32(memory, byteOrder, math.Float32bits(val), index)
 }
 
-// WriteFloat64 reads a float64 at memory location index
+// WriteFloat64 writes a float64 at memory location index
 func WriteFloat64(memory Memory, byteOrder binary.ByteOrder, val float64, index uint64) error {
 	return WriteUint64(memory, byteOrder, math.Float64bits(val), index)
 }
 
-// WriteUint16 reads a uint32 at memory location index
+// WriteUint8 writes a uint8 at memory location index, it is here for compleation, but is the same as memory.WriteOneByte(val, index)
+func WriteUint8(memory Memory, byteOrder binary.ByteOrder, val uint8, index uint64) error {
+	return memory.WriteOneByte(val, index)
+}
+
+// WriteUint16 writes a uint16 at memory location index
 func WriteUint16(memory Memory, byteOrder binary.ByteOrder, val uint16, index uint64) error {
 	data := make([]byte, 2)
 	byteOrder.PutUint16(data, val)
 	return memory.WriteRaw(data, index)
 }
 
-// WriteUint32 reads a uint32 at memory location index
+// WriteUint32 writes a uint32 at memory location index
 func WriteUint32(memory Memory, byteOrder binary.ByteOrder, val uint32, index uint64) error {
 	data := make([]byte, 4)
 	byteOrder.PutUint32(data, val)
 	return memory.WriteRaw(data, index)
 }
 
-// WriteUint64 reads a uint64 at memory location index
+// WriteUint64 writes a uint64 at memory location index
 func WriteUint64(memory Memory, byteOrder binary.ByteOrder, val uint64, index uint64) error {
 	data := make([]byte, 8)
 	byteOrder.PutUint64(data, val)

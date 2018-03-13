@@ -15,7 +15,7 @@ func NewUnexpectedCallback(t *testing.T, when string) processor.ErrorCallback {
 }
 
 // NewUnexpectedInstructionRunner32Callback makes a callback that fails when called
-func NewUnexpectedInstructionRunner32Callback(t *testing.T, when string) processor.InstructionRunner32 {
+func NewUnexpectedInstructionRunner32Callback(t *testing.T, when string) processor.InstructionRunnerUint32 {
 	return unexpectedInstructionRunner32Callback{t, when}
 }
 
@@ -24,7 +24,7 @@ type unexpectedInstructionRunner32Callback struct {
 	when string
 }
 
-func (runner unexpectedInstructionRunner32Callback) RunInstruction32(instruction uint32) error {
+func (runner unexpectedInstructionRunner32Callback) RunUint32(instruction uint32) error {
 	runner.t.Fatalf("Unexpected callback on %v.", runner.when)
 	return nil
 }

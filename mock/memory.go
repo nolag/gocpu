@@ -54,7 +54,7 @@ func (memory *Memory) WriteOneByte(val byte, index uint64) error {
 		return memory.Fail
 	}
 
-	memory.Data[0] = val
+	memory.Data = []byte{val}
 	return nil
 }
 

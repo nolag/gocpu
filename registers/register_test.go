@@ -13,9 +13,9 @@ var anyValueF = math.Float32frombits(anyValue)
 var anyBigValue = uint64(0xF00DBEED12345678)
 var anyBigValueF = math.Float64frombits(anyBigValue)
 
-func TestUint32RegisterSetsFloatCorectly(t *testing.T) {
+func TestRegisterUint32SetsFloatCorectly(t *testing.T) {
 	// Given
-	register := registers.Uint32Register(0)
+	register := registers.RegisterUint32(0)
 
 	// When
 	register.SetFromFloat32(anyValueF)
@@ -24,9 +24,9 @@ func TestUint32RegisterSetsFloatCorectly(t *testing.T) {
 	assert.Equal(t, anyValue, uint32(register), "All 32 bit representations must be implementeds")
 }
 
-func TestUint32RegisterGetsFloatCorrectly(t *testing.T) {
+func TestRegisterUint32GetsFloatCorrectly(t *testing.T) {
 	// Given
-	register := registers.Uint32Register(anyValue)
+	register := registers.RegisterUint32(anyValue)
 
 	// When
 	actual := register.Float32Value()
@@ -35,9 +35,9 @@ func TestUint32RegisterGetsFloatCorrectly(t *testing.T) {
 	assert.Equal(t, anyValueF, actual, "All 32 bit representations must be implementeds")
 }
 
-func TestUint64RegisterSetsFloatCorectly(t *testing.T) {
+func TestRegisterUint64SetsFloatCorectly(t *testing.T) {
 	// Given
-	register := registers.Uint64Register(0)
+	register := registers.RegisterUint64(0)
 
 	// When
 	register.SetFromFloat64(anyBigValueF)
@@ -46,9 +46,9 @@ func TestUint64RegisterSetsFloatCorectly(t *testing.T) {
 	assert.Equal(t, anyBigValue, uint64(register), "All 64 bit representations must be implementeds")
 }
 
-func TestUint64RegisterGetsFloatCorrectly(t *testing.T) {
+func TestRegisterUint64GetsFloatCorrectly(t *testing.T) {
 	// Given
-	register := registers.Uint64Register(anyBigValue)
+	register := registers.RegisterUint64(anyBigValue)
 
 	// When
 	actual := register.Float64Value()
@@ -57,9 +57,9 @@ func TestUint64RegisterGetsFloatCorrectly(t *testing.T) {
 	assert.Equal(t, anyBigValueF, actual, "All 64 bit representations must be implementeds")
 }
 
-func TestFloat32RegisterSetsUintCorectly(t *testing.T) {
+func TestRegisterFloat32SetsUintCorectly(t *testing.T) {
 	// Given
-	register := registers.Float32Register(0)
+	register := registers.RegisterFloat32(0)
 
 	// When
 	register.SetFromUint32(anyValue)
@@ -68,9 +68,9 @@ func TestFloat32RegisterSetsUintCorectly(t *testing.T) {
 	assert.Equal(t, anyValueF, float32(register), "All 32 bit representations must be implementeds")
 }
 
-func TestFloat32RegisterGetsUintCorrectly(t *testing.T) {
+func TestRegisterFloat32GetsUintCorrectly(t *testing.T) {
 	// Given
-	register := registers.Float32Register(anyValueF)
+	register := registers.RegisterFloat32(anyValueF)
 
 	// When
 	actual := register.Uint32Value()
@@ -79,9 +79,9 @@ func TestFloat32RegisterGetsUintCorrectly(t *testing.T) {
 	assert.Equal(t, anyValue, actual, "All 32 bit representations must be implementeds")
 }
 
-func TestFloat64RegisterSetsUintCorectly(t *testing.T) {
+func TestRegisterFloat64SetsUintCorectly(t *testing.T) {
 	// Given
-	register := registers.Float64Register(0)
+	register := registers.RegisterFloat64(0)
 
 	// When
 	register.SetFromUint64(anyBigValue)
@@ -90,9 +90,9 @@ func TestFloat64RegisterSetsUintCorectly(t *testing.T) {
 	assert.Equal(t, anyBigValueF, float64(register), "All 64 bit representations must be implementeds")
 }
 
-func TestFloat64RegisterGetsUintCorrectly(t *testing.T) {
+func TestRegisterFloat64GetsUintCorrectly(t *testing.T) {
 	// Given
-	register := registers.Float64Register(anyBigValueF)
+	register := registers.RegisterFloat64(anyBigValueF)
 
 	// When
 	actual := register.Uint64Value()
@@ -109,16 +109,16 @@ Tests below here test generated methods*
 func TestGeneratedTypesFitGeneratedInterfaces(t *testing.T) {
 	// sixteen bit was chosen because 32 and 64 bit have extra and use another interface
 	x := func(r registers.SixteenBitRegister) {}
-	register := registers.Uint16Register(0)
+	register := registers.RegisterUint16(0)
 	x(&register)
 }
 
 func TestGeneratedRegisterGetsValue(t *testing.T) {
 	// Given
-	reg := registers.Uint32Register(anyValue)
+	reg := registers.RegisterUint32(anyValue)
 
 	// When
-	val := reg.Uint32Value()
+	val := reg.ValueAsUint32()
 
 	// Then
 	assert.Equal(t, anyValue, val, "Wrong value returned from get")
@@ -126,7 +126,7 @@ func TestGeneratedRegisterGetsValue(t *testing.T) {
 
 func TestGeneratedRegisterSetsValue(t *testing.T) {
 	// Given
-	reg := registers.Uint32Register(0)
+	reg := registers.RegisterUint32(0)
 
 	// When
 	reg.SetFromUint32(anyValue)
@@ -140,7 +140,7 @@ func TestZeroRegisterGetsZeroValue(t *testing.T) {
 	reg := registers.ZeroRegister{}
 
 	// When
-	val := reg.Uint32Value()
+	val := reg.ValueAsUint32()
 
 	// When - Then
 	assert.Equal(t, uint32(0), val, "Zero register must return 0")
@@ -154,7 +154,7 @@ func TestZeroRegisterDoesNotSetValue(t *testing.T) {
 	reg.SetFromUint32(anyValue)
 
 	// Then
-	assert.Equal(t, uint32(0), reg.Uint32Value(), "Zero register must not be settable")
+	assert.Equal(t, uint32(0), reg.ValueAsUint32(), "Zero register must not be settable")
 }
 
 func TestZeroRegisterDoesNotIncrement(t *testing.T) {
@@ -165,5 +165,5 @@ func TestZeroRegisterDoesNotIncrement(t *testing.T) {
 	reg.SetFromUint32(anyValue)
 
 	// Then
-	assert.Equal(t, uint32(0), reg.Uint32Value(), "Zero register must not be settable")
+	assert.Equal(t, uint32(0), reg.ValueAsUint32(), "Zero register must not be settable")
 }

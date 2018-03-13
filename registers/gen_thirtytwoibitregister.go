@@ -6,9 +6,9 @@ package registers
 
 // thirtyTwoiBitRegister represents a register holding the described number of bits.
 type thirtyTwoiBitRegister interface {
-	// SetFromIntName sets the value held by this register.
+	// SetFromUint32 sets the value held by this register.
 	SetFromUint32(value uint32)
 
-	// Uint32Value gets the value held by this register
-	Uint32Value() uint32
+	// ValueAsUint32 gets the value held by this register
+	ValueAsUint32() uint32
 }

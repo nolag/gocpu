@@ -6,9 +6,9 @@ package registers
 
 // EightBitRegister represents a register holding the described number of bits.
 type EightBitRegister interface {
-	// SetFromIntName sets the value held by this register.
+	// SetFromUint8 sets the value held by this register.
 	SetFromUint8(value uint8)
 
-	// Uint8Value gets the value held by this register
-	Uint8Value() uint8
+	// ValueAsUint8 gets the value held by this register
+	ValueAsUint8() uint8
 }

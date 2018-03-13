@@ -6,9 +6,9 @@ package registers
 
 // sixtyFouriBitRegister represents a register holding the described number of bits.
 type sixtyFouriBitRegister interface {
-	// SetFromIntName sets the value held by this register.
+	// SetFromUint64 sets the value held by this register.
 	SetFromUint64(value uint64)
 
-	// Uint64Value gets the value held by this register
-	Uint64Value() uint64
+	// ValueAsUint64 gets the value held by this register
+	ValueAsUint64() uint64
 }
