@@ -3,6 +3,8 @@ package mock
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/nolag/gocpu/processor"
 )
 
@@ -27,4 +29,24 @@ type unexpectedInstructionRunner32Callback struct {
 func (runner unexpectedInstructionRunner32Callback) RunUint32(instruction uint32) error {
 	runner.t.Fatalf("Unexpected callback on %v.", runner.when)
 	return nil
+}
+
+// NewCallback creates a callback (callback), an assertion (verify) it was called expectedNumCalls,
+// and an assertion it wasn't called expectedNumCalls (nverify)
+func NewCallback(t *testing.T, expectedNumCalls uint, when string) (callback func(), verify func(), nverify func()) {
+	numTimesCalled := uint(0)
+	callback = func() {
+		numTimesCalled++
+		assert.Falsef(t, numTimesCalled < expectedNumCalls, "Callback for %v was called back %v times.", when, numTimesCalled)
+	}
+
+	verify = func() {
+		assert.Equal(t, expectedNumCalls, numTimesCalled, "Callback for %v", when)
+	}
+
+	nverify = func() {
+		assert.NotEqual(t, expectedNumCalls, numTimesCalled, "Callback for %v called before expected", when)
+	}
+
+	return
 }
