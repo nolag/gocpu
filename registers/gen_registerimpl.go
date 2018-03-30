@@ -17,13 +17,24 @@ func (register *RegisterUint8) ValueAsUint8() uint8 {
 	return uint8(*register)
 }
 
-// SetFromUint8 does nothing for the zero register.
-func (register ZeroRegister) SetFromUint8(value uint8) {
+// DecrementUint8 decrements the register by value
+func (register *RegisterUint8) DecrementUint8(value uint8) {
+	*register -= RegisterUint8(value)
 }
 
-// ValueAsUint8 gets the value held by this register
-func (register ZeroRegister) ValueAsUint8() uint8 {
-	return 0
+// InrementUint8 increments the register by value
+func (register *RegisterUint8) InrementUint8(value uint8) {
+	*register += RegisterUint8(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterUint8) InrementAsPc(value byte) {
+	*register += RegisterUint8(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterUint8) ReadAsPc() uint64 {
+	return uint64(*register)
 }
 
 // RegisterUint16 is the register for the backing int
@@ -39,13 +50,24 @@ func (register *RegisterUint16) ValueAsUint16() uint16 {
 	return uint16(*register)
 }
 
-// SetFromUint16 does nothing for the zero register.
-func (register ZeroRegister) SetFromUint16(value uint16) {
+// DecrementUint16 decrements the register by value
+func (register *RegisterUint16) DecrementUint16(value uint16) {
+	*register -= RegisterUint16(value)
 }
 
-// ValueAsUint16 gets the value held by this register
-func (register ZeroRegister) ValueAsUint16() uint16 {
-	return 0
+// InrementUint16 increments the register by value
+func (register *RegisterUint16) InrementUint16(value uint16) {
+	*register += RegisterUint16(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterUint16) InrementAsPc(value byte) {
+	*register += RegisterUint16(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterUint16) ReadAsPc() uint64 {
+	return uint64(*register)
 }
 
 // RegisterUint32 is the register for the backing int
@@ -61,13 +83,24 @@ func (register *RegisterUint32) ValueAsUint32() uint32 {
 	return uint32(*register)
 }
 
-// SetFromUint32 does nothing for the zero register.
-func (register ZeroRegister) SetFromUint32(value uint32) {
+// DecrementUint32 decrements the register by value
+func (register *RegisterUint32) DecrementUint32(value uint32) {
+	*register -= RegisterUint32(value)
 }
 
-// ValueAsUint32 gets the value held by this register
-func (register ZeroRegister) ValueAsUint32() uint32 {
-	return 0
+// InrementUint32 increments the register by value
+func (register *RegisterUint32) InrementUint32(value uint32) {
+	*register += RegisterUint32(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterUint32) InrementAsPc(value byte) {
+	*register += RegisterUint32(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterUint32) ReadAsPc() uint64 {
+	return uint64(*register)
 }
 
 // RegisterUint64 is the register for the backing int
@@ -83,13 +116,24 @@ func (register *RegisterUint64) ValueAsUint64() uint64 {
 	return uint64(*register)
 }
 
-// SetFromUint64 does nothing for the zero register.
-func (register ZeroRegister) SetFromUint64(value uint64) {
+// DecrementUint64 decrements the register by value
+func (register *RegisterUint64) DecrementUint64(value uint64) {
+	*register -= RegisterUint64(value)
 }
 
-// ValueAsUint64 gets the value held by this register
-func (register ZeroRegister) ValueAsUint64() uint64 {
-	return 0
+// InrementUint64 increments the register by value
+func (register *RegisterUint64) InrementUint64(value uint64) {
+	*register += RegisterUint64(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterUint64) InrementAsPc(value byte) {
+	*register += RegisterUint64(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterUint64) ReadAsPc() uint64 {
+	return uint64(*register)
 }
 
 // RegisterFloat32 is the register for the backing int
@@ -105,13 +149,24 @@ func (register *RegisterFloat32) ValueAsFloat32() float32 {
 	return float32(*register)
 }
 
-// SetFromFloat32 does nothing for the zero register.
-func (register ZeroRegister) SetFromFloat32(value float32) {
+// DecrementFloat32 decrements the register by value
+func (register *RegisterFloat32) DecrementFloat32(value float32) {
+	*register -= RegisterFloat32(value)
 }
 
-// ValueAsFloat32 gets the value held by this register
-func (register ZeroRegister) ValueAsFloat32() float32 {
-	return 0
+// InrementFloat32 increments the register by value
+func (register *RegisterFloat32) InrementFloat32(value float32) {
+	*register += RegisterFloat32(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterFloat32) InrementAsPc(value byte) {
+	*register += RegisterFloat32(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterFloat32) ReadAsPc() uint64 {
+	return uint64(*register)
 }
 
 // RegisterFloat64 is the register for the backing int
@@ -127,11 +182,22 @@ func (register *RegisterFloat64) ValueAsFloat64() float64 {
 	return float64(*register)
 }
 
-// SetFromFloat64 does nothing for the zero register.
-func (register ZeroRegister) SetFromFloat64(value float64) {
+// DecrementFloat64 decrements the register by value
+func (register *RegisterFloat64) DecrementFloat64(value float64) {
+	*register -= RegisterFloat64(value)
 }
 
-// ValueAsFloat64 gets the value held by this register
-func (register ZeroRegister) ValueAsFloat64() float64 {
-	return 0
+// InrementFloat64 increments the register by value
+func (register *RegisterFloat64) InrementFloat64(value float64) {
+	*register += RegisterFloat64(value)
+}
+
+// InrementAsPc increments the register by value byte pc read
+func (register *RegisterFloat64) InrementAsPc(value byte) {
+	*register += RegisterFloat64(value)
+}
+
+// ReadAsPc reads the value cased to a 64 bit allowing a memory read from that location to follow
+func (register *RegisterFloat64) ReadAsPc() uint64 {
+	return uint64(*register)
 }

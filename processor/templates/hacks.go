@@ -16,6 +16,6 @@ func (InstructionRunnerrunnerType) RunrunnerCapsType(uint64) error {
 	return nil
 }
 
-func (instructionrunnerType) size() uint64 {
+func (instructionrunnerType) size() uint8 {
 	return 0
 }

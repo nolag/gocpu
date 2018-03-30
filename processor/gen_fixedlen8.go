@@ -4,22 +4,26 @@
 
 package processor
 
-import "encoding/binary"
-import "github.com/nolag/gocpu/memory"
+import (
+	"encoding/binary"
 
-// FixedInstructionLenPcUint8RunnerUint8 runs a sinlge 32 bit instruction one at a time, by calling InstructionRunner32.
-type FixedInstructionLenPcUint8RunnerUint8 struct {
+	"github.com/nolag/gocpu/memory"
+	"github.com/nolag/gocpu/registers"
+)
+
+// FixedInstructionLenRunnerUint8 runs uint8 instructions one at a time, by calling InstructionRunnerUint8.
+type FixedInstructionLenRunnerUint8 struct {
 	memory.Memory
 	binary.ByteOrder
 	InstructionRunnerUint8
-	Pc                        uint8
+	Pc                        registers.ProgramCounter
 	MemoryReadFailureCallback ErrorCallback
 }
 
 // Step runs the next instruction, returns error to indicate an unhandeled exception
-func (cpu *FixedInstructionLenPcUint8RunnerUint8) Step() error {
+func (cpu *FixedInstructionLenRunnerUint8) Step() error {
 	i := instructionuint8(0)
-	val, err := memory.ReadUint8(cpu.Memory, cpu.ByteOrder, uint64(cpu.Pc))
+	val, err := memory.ReadUint8(cpu.Memory, cpu.ByteOrder, cpu.Pc.ReadAsPc())
 
 	if err != nil {
 		callback := cpu.MemoryReadFailureCallback
@@ -29,88 +33,7 @@ func (cpu *FixedInstructionLenPcUint8RunnerUint8) Step() error {
 
 		return err
 	}
-	cpu.Pc += uint8(i.size())
-	cpu.RunUint8(val)
-	return nil
-}
-
-// FixedInstructionLenPcUint16RunnerUint8 runs a sinlge 32 bit instruction one at a time, by calling InstructionRunner32.
-type FixedInstructionLenPcUint16RunnerUint8 struct {
-	memory.Memory
-	binary.ByteOrder
-	InstructionRunnerUint8
-	Pc                        uint16
-	MemoryReadFailureCallback ErrorCallback
-}
-
-// Step runs the next instruction, returns error to indicate an unhandeled exception
-func (cpu *FixedInstructionLenPcUint16RunnerUint8) Step() error {
-	i := instructionuint8(0)
-	val, err := memory.ReadUint8(cpu.Memory, cpu.ByteOrder, uint64(cpu.Pc))
-
-	if err != nil {
-		callback := cpu.MemoryReadFailureCallback
-		if callback != nil {
-			err = cpu.MemoryReadFailureCallback(err)
-		}
-
-		return err
-	}
-	cpu.Pc += uint16(i.size())
-	cpu.RunUint8(val)
-	return nil
-}
-
-// FixedInstructionLenPcUint32RunnerUint8 runs a sinlge 32 bit instruction one at a time, by calling InstructionRunner32.
-type FixedInstructionLenPcUint32RunnerUint8 struct {
-	memory.Memory
-	binary.ByteOrder
-	InstructionRunnerUint8
-	Pc                        uint32
-	MemoryReadFailureCallback ErrorCallback
-}
-
-// Step runs the next instruction, returns error to indicate an unhandeled exception
-func (cpu *FixedInstructionLenPcUint32RunnerUint8) Step() error {
-	i := instructionuint8(0)
-	val, err := memory.ReadUint8(cpu.Memory, cpu.ByteOrder, uint64(cpu.Pc))
-
-	if err != nil {
-		callback := cpu.MemoryReadFailureCallback
-		if callback != nil {
-			err = cpu.MemoryReadFailureCallback(err)
-		}
-
-		return err
-	}
-	cpu.Pc += uint32(i.size())
-	cpu.RunUint8(val)
-	return nil
-}
-
-// FixedInstructionLenPcUint64RunnerUint8 runs a sinlge 32 bit instruction one at a time, by calling InstructionRunner32.
-type FixedInstructionLenPcUint64RunnerUint8 struct {
-	memory.Memory
-	binary.ByteOrder
-	InstructionRunnerUint8
-	Pc                        uint64
-	MemoryReadFailureCallback ErrorCallback
-}
-
-// Step runs the next instruction, returns error to indicate an unhandeled exception
-func (cpu *FixedInstructionLenPcUint64RunnerUint8) Step() error {
-	i := instructionuint8(0)
-	val, err := memory.ReadUint8(cpu.Memory, cpu.ByteOrder, uint64(cpu.Pc))
-
-	if err != nil {
-		callback := cpu.MemoryReadFailureCallback
-		if callback != nil {
-			err = cpu.MemoryReadFailureCallback(err)
-		}
-
-		return err
-	}
-	cpu.Pc += uint64(i.size())
+	cpu.Pc.InrementAsPc(i.size())
 	cpu.RunUint8(val)
 	return nil
 }

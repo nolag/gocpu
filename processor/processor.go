@@ -1,11 +1,11 @@
 // Package processor provides the bascis for implmenting a processor
 package processor
 
-//go:generate genny -pkg processor -in=templates/generic_instruction.go -out=gen_instruction_impl.go gen "instructionType=uint8,uint16,uint32,uint64"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen8.go gen "pcType=uint8,uint16,uint32,uint64 runnerType=uint8 runnerCapsType=Uint8"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen16.go gen "pcType=uint8,uint16,uint32,uint64 runnerType=uint16 runnerCapsType=Uint16"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen32.go gen "pcType=uint8,uint16,uint32,uint64 runnerType=uint32 runnerCapsType=Uint32"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen64.go gen "pcType=uint8,uint16,uint32,uint64 runnerType=uint64 runnerCapsType=Uint64"
+//go:generate genny -pkg processor -in=templates/generic_instructionrunner.go -out=gen_instructionrunner.go gen "instructionType=uint8,uint16,uint32,uint64"
+//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen8.go gen "runnerType=uint8 runnerCapsType=Uint8"
+//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen16.go gen "runnerType=uint16 runnerCapsType=Uint16"
+//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen32.go gen "runnerType=uint32 runnerCapsType=Uint32"
+//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen64.go gen "runnerType=uint64 runnerCapsType=Uint64"
 
 // Processor is an interface for a simulated processor
 type Processor interface {

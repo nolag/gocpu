@@ -5,6 +5,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/nolag/gocpu/registers"
+
 	"github.com/nolag/gocpu/mock"
 	"github.com/nolag/gocpu/processor"
 	"github.com/stretchr/testify/assert"
@@ -17,13 +19,13 @@ Tests below here test generated methods*
 func TestFixedGeneratedIncrementsPc(t *testing.T) {
 	// Given
 	processor, _ := CreateTestFixedLenProcessor32(t)
-	pcBefore := processor.Pc
+	pcBefore := processor.Pc.ReadAsPc()
 
 	// When
 	err := processor.Step()
 
 	// Then
-	assert.Equal(t, pcBefore+4, processor.Pc, "PC not incremented")
+	assert.Equal(t, pcBefore+4, processor.Pc.ReadAsPc(), "PC not incremented correctly")
 	assert.NoError(t, err, "Step must not return an error if none was returned to it")
 }
 
@@ -65,7 +67,7 @@ func TestFixedGeneratedErrorReturnedFromMemoryWithNoCallback(t *testing.T) {
 func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback processor.ErrorCallback) {
 	// Given
 	processor, runner := CreateTestFixedLenProcessor32(t)
-	memory := &mock.Memory{Data: nil, ExpectedIndex: uint64(processor.Pc), Fail: errFail, T: t}
+	memory := &mock.Memory{Data: nil, ExpectedIndex: processor.Pc.ReadAsPc(), Fail: errFail, T: t}
 	processor.Memory = memory
 	processor.MemoryReadFailureCallback = callback
 	processor.InstructionRunnerUint32 = mock.NewUnexpectedInstructionRunner32Callback(
@@ -80,8 +82,9 @@ func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback p
 	assert.Equal(t, 0, runner.NumTimesRun, "Wrong number of times to run the callback")
 }
 
-func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLenPcUint32RunnerUint32, *mock.InstructionRunner32) {
-	anyValue := uint32(500)
+func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLenRunnerUint32, *mock.InstructionRunner32) {
+	anyValue := uint64(500)
+	anyPc := registers.RegisterUint64(anyValue)
 	anyOtherValue := uint32(0xF00DBEEF)
 	data := make([]byte, 4)
 	anyEndianness := binary.BigEndian
@@ -89,20 +92,14 @@ func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLen
 	anyMemory := &mock.Memory{Data: data, ExpectedIndex: uint64(anyValue), Fail: nil, T: t}
 
 	notCalledErrorCallback := mock.NewUnexpectedCallback(t, "running instruction with no callback")
-	anyRunner := &mock.InstructionRunner32{ExpectedError: nil, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, PcGetter: nil, T: t}
+	anyRunner := &mock.InstructionRunner32{ExpectedError: nil, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, Pc: &anyPc, T: t}
 
-	processor := processor.FixedInstructionLenPcUint32RunnerUint32{
+	processor := processor.FixedInstructionLenRunnerUint32{
 		ByteOrder:               anyEndianness,
 		Memory:                  anyMemory,
 		InstructionRunnerUint32: anyRunner,
-		Pc: anyValue,
+		Pc: &anyPc,
 		MemoryReadFailureCallback: notCalledErrorCallback}
-
-	pcGetter := func() interface{} {
-		return processor.Pc
-	}
-
-	anyRunner.PcGetter = pcGetter
 
 	return &processor, anyRunner
 }

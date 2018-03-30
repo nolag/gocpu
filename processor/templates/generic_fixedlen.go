@@ -5,25 +5,25 @@ import (
 
 	"github.com/cheekybits/genny/generic"
 	memory "github.com/nolag/gocpu/processor/templates/memhack"
+	"github.com/nolag/gocpu/registers"
 )
 
-type pcType generic.Number
 type runnerType generic.Number
 type runnerCapsType generic.Number
 
-// FixedInstructionLenPcpcTypeRunnerrunnerType runs a sinlge 32 bit instruction one at a time, by calling InstructionRunner32.
-type FixedInstructionLenPcpcTypeRunnerrunnerType struct {
+// FixedInstructionLenRunnerrunnerType runs runnerType instructions one at a time, by calling InstructionRunnerrunnerType.
+type FixedInstructionLenRunnerrunnerType struct {
 	memory.Memory
 	binary.ByteOrder
 	InstructionRunnerrunnerType
-	Pc                        pcType
+	Pc                        registers.ProgramCounter
 	MemoryReadFailureCallback ErrorCallback
 }
 
 // Step runs the next instruction, returns error to indicate an unhandeled exception
-func (cpu *FixedInstructionLenPcpcTypeRunnerrunnerType) Step() error {
+func (cpu *FixedInstructionLenRunnerrunnerType) Step() error {
 	i := instructionrunnerType(0)
-	val, err := memory.ReadrunnerCapsType(cpu.Memory, cpu.ByteOrder, uint64(cpu.Pc))
+	val, err := memory.ReadrunnerCapsType(cpu.Memory, cpu.ByteOrder, cpu.Pc.ReadAsPc())
 
 	if err != nil {
 		callback := cpu.MemoryReadFailureCallback
@@ -33,7 +33,7 @@ func (cpu *FixedInstructionLenPcpcTypeRunnerrunnerType) Step() error {
 
 		return err
 	}
-	cpu.Pc += pcType(i.size())
+	cpu.Pc.InrementAsPc(i.size())
 	cpu.RunrunnerCapsType(val)
 	return nil
 }
