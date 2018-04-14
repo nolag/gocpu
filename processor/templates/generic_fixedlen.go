@@ -34,6 +34,5 @@ func (cpu *FixedInstructionLenRunnerrunnerType) Step() error {
 		return err
 	}
 	cpu.Pc.InrementAsPc(i.size())
-	cpu.RunrunnerCapsType(val)
-	return nil
+	return cpu.RunrunnerCapsType(val)
 }

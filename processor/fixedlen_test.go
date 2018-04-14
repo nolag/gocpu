@@ -18,7 +18,7 @@ Tests below here test generated methods*
 
 func TestFixedGeneratedIncrementsPc(t *testing.T) {
 	// Given
-	processor, _ := CreateTestFixedLenProcessor32(t)
+	processor, _, errExpected := CreateTestFixedLenProcessor32(t)
 	pcBefore := processor.Pc.ReadAsPc()
 
 	// When
@@ -26,12 +26,12 @@ func TestFixedGeneratedIncrementsPc(t *testing.T) {
 
 	// Then
 	assert.Equal(t, pcBefore+4, processor.Pc.ReadAsPc(), "PC not incremented correctly")
-	assert.NoError(t, err, "Step must not return an error if none was returned to it")
+	assert.Equal(t, errExpected, err, "Errors from run must match returned value")
 }
 
 func TestFixedGeneratedMakesCallWithCorrectValue(t *testing.T) {
 	// Given
-	processor, runnerMock := CreateTestFixedLenProcessor32(t)
+	processor, runnerMock, _ := CreateTestFixedLenProcessor32(t)
 
 	// When
 	processor.Step()
@@ -66,7 +66,7 @@ func TestFixedGeneratedErrorReturnedFromMemoryWithNoCallback(t *testing.T) {
 
 func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback processor.ErrorCallback) {
 	// Given
-	processor, runner := CreateTestFixedLenProcessor32(t)
+	processor, runner, _ := CreateTestFixedLenProcessor32(t)
 	memory := &mock.Memory{Data: nil, ExpectedIndex: processor.Pc.ReadAsPc(), Fail: errFail, T: t}
 	processor.Memory = memory
 	processor.MemoryReadFailureCallback = callback
@@ -82,7 +82,7 @@ func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback p
 	assert.Equal(t, 0, runner.NumTimesRun, "Wrong number of times to run the callback")
 }
 
-func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLenRunnerUint32, *mock.InstructionRunner32) {
+func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLenRunnerUint32, *mock.InstructionRunner32, error) {
 	anyValue := uint64(500)
 	anyPc := registers.RegisterUint64(anyValue)
 	anyOtherValue := uint32(0xF00DBEEF)
@@ -90,9 +90,10 @@ func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLen
 	anyEndianness := binary.BigEndian
 	anyEndianness.PutUint32(data, anyOtherValue)
 	anyMemory := &mock.Memory{Data: data, ExpectedIndex: uint64(anyValue), Fail: nil, T: t}
+	anyError := errors.New("Returned value")
 
 	notCalledErrorCallback := mock.NewUnexpectedCallback(t, "running instruction with no callback")
-	anyRunner := &mock.InstructionRunner32{ExpectedError: nil, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, Pc: &anyPc, T: t}
+	anyRunner := &mock.InstructionRunner32{ExpectedError: anyError, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, Pc: &anyPc, T: t}
 
 	processor := processor.FixedInstructionLenRunnerUint32{
 		ByteOrder:               anyEndianness,
@@ -101,5 +102,5 @@ func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLen
 		Pc: &anyPc,
 		MemoryReadFailureCallback: notCalledErrorCallback}
 
-	return &processor, anyRunner
+	return &processor, anyRunner, anyError
 }

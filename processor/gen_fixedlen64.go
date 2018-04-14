@@ -34,6 +34,5 @@ func (cpu *FixedInstructionLenRunnerUint64) Step() error {
 		return err
 	}
 	cpu.Pc.InrementAsPc(i.size())
-	cpu.RunUint64(val)
-	return nil
+	return cpu.RunUint64(val)
 }
