@@ -12,26 +12,35 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-/***************************************
-Tests below here test generated methods*
-***************************************/
-
 func TestFixedGeneratedIncrementsPc(t *testing.T) {
 	// Given
-	processor, _, errExpected := CreateTestFixedLenProcessor32(t)
+	processor, _ := CreateTestFixedLenProcessor32(t, nil)
+	pcBefore := processor.Pc.ReadAsPc()
+
+	// When
+	processor.Step()
+
+	// Then
+	assert.Equal(t, pcBefore+4, processor.Pc.ReadAsPc(), "PC not incremented correctly")
+}
+
+func TestFixdGeneratedDoesNotIncrementPcOnError(t *testing.T) {
+	// Given
+	anyError := errors.New("Returned value")
+	processor, _ := CreateTestFixedLenProcessor32(t, anyError)
 	pcBefore := processor.Pc.ReadAsPc()
 
 	// When
 	err := processor.Step()
 
 	// Then
-	assert.Equal(t, pcBefore+4, processor.Pc.ReadAsPc(), "PC not incremented correctly")
-	assert.Equal(t, errExpected, err, "Errors from run must match returned value")
+	assert.Equal(t, pcBefore, processor.Pc.ReadAsPc(), "PC must not increment on error")
+	assert.Equal(t, anyError, err, "Wrong error returned")
 }
 
 func TestFixedGeneratedMakesCallWithCorrectValue(t *testing.T) {
 	// Given
-	processor, runnerMock, _ := CreateTestFixedLenProcessor32(t)
+	processor, runnerMock := CreateTestFixedLenProcessor32(t, nil)
 
 	// When
 	processor.Step()
@@ -66,7 +75,7 @@ func TestFixedGeneratedErrorReturnedFromMemoryWithNoCallback(t *testing.T) {
 
 func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback processor.ErrorCallback) {
 	// Given
-	processor, runner, _ := CreateTestFixedLenProcessor32(t)
+	processor, runner := CreateTestFixedLenProcessor32(t, nil)
 	memory := &mock.Memory{Data: nil, ExpectedIndex: processor.Pc.ReadAsPc(), Fail: errFail, T: t}
 	processor.Memory = memory
 	processor.MemoryReadFailureCallback = callback
@@ -82,7 +91,7 @@ func RunBadMemoryTest(t *testing.T, errFail error, errExpected error, callback p
 	assert.Equal(t, 0, runner.NumTimesRun, "Wrong number of times to run the callback")
 }
 
-func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLenRunnerUint32, *mock.InstructionRunner32, error) {
+func CreateTestFixedLenProcessor32(t *testing.T, errorToReturn error) (*processor.FixedInstructionLenRunnerUint32, *mock.InstructionRunner32) {
 	anyValue := uint64(500)
 	anyPc := registers.RegisterUint64(anyValue)
 	anyOtherValue := uint32(0xF00DBEEF)
@@ -90,10 +99,9 @@ func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLen
 	anyEndianness := binary.BigEndian
 	anyEndianness.PutUint32(data, anyOtherValue)
 	anyMemory := &mock.Memory{Data: data, ExpectedIndex: uint64(anyValue), Fail: nil, T: t}
-	anyError := errors.New("Returned value")
 
 	notCalledErrorCallback := mock.NewUnexpectedCallback(t, "running instruction with no callback")
-	anyRunner := &mock.InstructionRunner32{ExpectedError: anyError, ExpectedPc: anyValue + 4, ExpectedValue: anyOtherValue, Pc: &anyPc, T: t}
+	anyRunner := &mock.InstructionRunner32{ExpectedError: errorToReturn, ExpectedPc: anyValue, ExpectedValue: anyOtherValue, Pc: &anyPc, T: t}
 
 	processor := processor.FixedInstructionLenRunnerUint32{
 		ByteOrder:               anyEndianness,
@@ -102,5 +110,5 @@ func CreateTestFixedLenProcessor32(t *testing.T) (*processor.FixedInstructionLen
 		Pc: &anyPc,
 		MemoryReadFailureCallback: notCalledErrorCallback}
 
-	return &processor, anyRunner, anyError
+	return &processor, anyRunner
 }
