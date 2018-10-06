@@ -9,7 +9,6 @@ import (
 )
 
 type runnerType generic.Number
-type runnerCapsType generic.Number
 
 // FixedInstructionLenRunnerrunnerType runs runnerType instructions one at a time, by calling InstructionRunnerrunnerType.
 type FixedInstructionLenRunnerrunnerType struct {
@@ -23,7 +22,7 @@ type FixedInstructionLenRunnerrunnerType struct {
 // Step runs the next instruction, returns error to indicate an unhandeled exception
 func (cpu *FixedInstructionLenRunnerrunnerType) Step() error {
 	i := instructionrunnerType(0)
-	val, err := memory.ReadrunnerCapsType(cpu.Memory, cpu.ByteOrder, cpu.Pc.ReadAsPc())
+	val, err := memory.ReadrunnerType(cpu.Memory, cpu.ByteOrder, cpu.Pc.ReadAsPc())
 
 	if err != nil {
 		callback := cpu.MemoryReadFailureCallback
@@ -34,7 +33,7 @@ func (cpu *FixedInstructionLenRunnerrunnerType) Step() error {
 		return err
 	}
 
-	err = cpu.RunrunnerCapsType(val)
+	err = cpu.RunrunnerType(val)
 	if err == nil {
 		cpu.Pc.InrementAsPc(i.size())
 	}

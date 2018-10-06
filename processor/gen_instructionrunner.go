@@ -4,8 +4,8 @@
 
 package processor
 
-// instructionuint8 represents an instruction
-type instructionuint8 uint8
+// instructionUint8 represents an instruction
+type instructionUint8 uint8
 
 // InstructionRunnerUint8 runs an InstructioninstructionpcType
 type InstructionRunnerUint8 interface {
@@ -13,8 +13,8 @@ type InstructionRunnerUint8 interface {
 	RunUint8(instruction uint8) error
 }
 
-// instructionuint16 represents an instruction
-type instructionuint16 uint16
+// instructionUint16 represents an instruction
+type instructionUint16 uint16
 
 // InstructionRunnerUint16 runs an InstructioninstructionpcType
 type InstructionRunnerUint16 interface {
@@ -22,8 +22,8 @@ type InstructionRunnerUint16 interface {
 	RunUint16(instruction uint16) error
 }
 
-// instructionuint32 represents an instruction
-type instructionuint32 uint32
+// instructionUint32 represents an instruction
+type instructionUint32 uint32
 
 // InstructionRunnerUint32 runs an InstructioninstructionpcType
 type InstructionRunnerUint32 interface {
@@ -31,8 +31,8 @@ type InstructionRunnerUint32 interface {
 	RunUint32(instruction uint32) error
 }
 
-// instructionuint64 represents an instruction
-type instructionuint64 uint64
+// instructionUint64 represents an instruction
+type instructionUint64 uint64
 
 // InstructionRunnerUint64 runs an InstructioninstructionpcType
 type InstructionRunnerUint64 interface {

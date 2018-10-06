@@ -6,7 +6,7 @@ import (
 
 type Memory interface{}
 
-func ReadrunnerCapsType(Memory, binary.ByteOrder, uint64) (uint64, error) {
+func ReadrunnerType(Memory, binary.ByteOrder, uint64) (uint64, error) {
 	return 0, nil
 }
 

@@ -2,10 +2,7 @@
 package processor
 
 //go:generate genny -pkg processor -in=templates/generic_instructionrunner.go -out=gen_instructionrunner.go gen "instructionType=uint8,uint16,uint32,uint64"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen8.go gen "runnerType=uint8 runnerCapsType=Uint8"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen16.go gen "runnerType=uint16 runnerCapsType=Uint16"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen32.go gen "runnerType=uint32 runnerCapsType=Uint32"
-//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen64.go gen "runnerType=uint64 runnerCapsType=Uint64"
+//go:generate genny -pkg processor -in=templates/generic_fixedlen.go -out=gen_fixedlen.go gen "runnerType=uint8,uint16,uint32,uint64"
 
 // Processor is an interface for a simulated processor
 type Processor interface {
@@ -16,18 +13,18 @@ type Processor interface {
 // ErrorCallback allows a callback to be made when an error is returned
 type ErrorCallback func(err error) error
 
-func (instructionuint8) size() uint8 {
+func (instructionUint8) size() uint8 {
 	return 1
 }
 
-func (instructionuint16) size() uint8 {
+func (instructionUint16) size() uint8 {
 	return 2
 }
 
-func (instructionuint32) size() uint8 {
+func (instructionUint32) size() uint8 {
 	return 4
 }
 
-func (instructionuint64) size() uint8 {
+func (instructionUint64) size() uint8 {
 	return 8
 }
