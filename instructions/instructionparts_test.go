@@ -127,3 +127,23 @@ func TestUint64Base(t *testing.T) {
 	assert.False(t, minTooHigh.Verify(), "Value that is 1 too high must not verify")
 	assert.False(t, anotherTooHigh.Verify(), "Value that is too high must not verify")
 }
+
+func TestConvertToSigned(t *testing.T) {
+	minValThatWillBeNegative := Uint3(4)
+	maxValueThatWillBeNegative := Uint3(7)
+	maxValThatWillStayPositive := Uint3(3)
+
+	assert.Equal(t, Int3(-4), minValThatWillBeNegative.ToInt3())
+	assert.Equal(t, Int3(-1), maxValueThatWillBeNegative.ToInt3())
+	assert.Equal(t, Int3(3), maxValThatWillStayPositive.ToInt3())
+}
+
+func TestConvertToUnsigned(t *testing.T) {
+	minValue := Int3(-4)
+	negativeOne := Int3(-1)
+	positiveValue := Int3(3)
+
+	assert.Equal(t, Uint3(4), minValue.ToUint3())
+	assert.Equal(t, Uint3(7), negativeOne.ToUint3())
+	assert.Equal(t, Uint3(3), positiveValue.ToUint3())
+}

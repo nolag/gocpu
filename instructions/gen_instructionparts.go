@@ -18,6 +18,14 @@ type Uint2 uint8
 func (value Uint2) Verify() bool {
 	return value < 4
 }
+// ToInt2 converts the value to a singed int with 2 bits
+func (value Uint2) ToInt2() Int2 {
+    return Int2(value) << 6 >> 6
+}
+// ToUint2 converts the value to an usinged int with 2 bits
+func (value Int2) ToUint2() Uint2 {
+    return Uint2(value) << 6 >> 6
+}
 // Int3 represents an signed 3 bit integer.
 type Int3 int8
 
@@ -32,6 +40,14 @@ type Uint3 uint8
 // Verify checks that value is in range of a 3 bit unsigned integer
 func (value Uint3) Verify() bool {
 	return value < 8
+}
+// ToInt3 converts the value to a singed int with 3 bits
+func (value Uint3) ToInt3() Int3 {
+    return Int3(value) << 5 >> 5
+}
+// ToUint3 converts the value to an usinged int with 3 bits
+func (value Int3) ToUint3() Uint3 {
+    return Uint3(value) << 5 >> 5
 }
 // Int4 represents an signed 4 bit integer.
 type Int4 int8
@@ -48,6 +64,14 @@ type Uint4 uint8
 func (value Uint4) Verify() bool {
 	return value < 16
 }
+// ToInt4 converts the value to a singed int with 4 bits
+func (value Uint4) ToInt4() Int4 {
+    return Int4(value) << 4 >> 4
+}
+// ToUint4 converts the value to an usinged int with 4 bits
+func (value Int4) ToUint4() Uint4 {
+    return Uint4(value) << 4 >> 4
+}
 // Int5 represents an signed 5 bit integer.
 type Int5 int8
 
@@ -62,6 +86,14 @@ type Uint5 uint8
 // Verify checks that value is in range of a 5 bit unsigned integer
 func (value Uint5) Verify() bool {
 	return value < 32
+}
+// ToInt5 converts the value to a singed int with 5 bits
+func (value Uint5) ToInt5() Int5 {
+    return Int5(value) << 3 >> 3
+}
+// ToUint5 converts the value to an usinged int with 5 bits
+func (value Int5) ToUint5() Uint5 {
+    return Uint5(value) << 3 >> 3
 }
 // Int6 represents an signed 6 bit integer.
 type Int6 int8
@@ -78,6 +110,14 @@ type Uint6 uint8
 func (value Uint6) Verify() bool {
 	return value < 64
 }
+// ToInt6 converts the value to a singed int with 6 bits
+func (value Uint6) ToInt6() Int6 {
+    return Int6(value) << 2 >> 2
+}
+// ToUint6 converts the value to an usinged int with 6 bits
+func (value Int6) ToUint6() Uint6 {
+    return Uint6(value) << 2 >> 2
+}
 // Int7 represents an signed 7 bit integer.
 type Int7 int8
 
@@ -93,20 +133,13 @@ type Uint7 uint8
 func (value Uint7) Verify() bool {
 	return value < 128
 }
-// Int8 represents an signed 8 bit integer.
-type Int8 int16
-
-// Verify checks that value is in range of a 8 bit signed integer
-func (value Int8) Verify() bool {
-	return value < 128 && value >= -128
+// ToInt7 converts the value to a singed int with 7 bits
+func (value Uint7) ToInt7() Int7 {
+    return Int7(value) << 1 >> 1
 }
-
-// Uint8 represents an unsigned 8 bit integer.
-type Uint8 uint16
-
-// Verify checks that value is in range of a 8 bit unsigned integer
-func (value Uint8) Verify() bool {
-	return value < 256
+// ToUint7 converts the value to an usinged int with 7 bits
+func (value Int7) ToUint7() Uint7 {
+    return Uint7(value) << 1 >> 1
 }
 // Int9 represents an signed 9 bit integer.
 type Int9 int16
@@ -123,6 +156,14 @@ type Uint9 uint16
 func (value Uint9) Verify() bool {
 	return value < 512
 }
+// ToInt9 converts the value to a singed int with 9 bits
+func (value Uint9) ToInt9() Int9 {
+    return Int9(value) << 7 >> 7
+}
+// ToUint9 converts the value to an usinged int with 9 bits
+func (value Int9) ToUint9() Uint9 {
+    return Uint9(value) << 7 >> 7
+}
 // Int10 represents an signed 10 bit integer.
 type Int10 int16
 
@@ -137,6 +178,14 @@ type Uint10 uint16
 // Verify checks that value is in range of a 10 bit unsigned integer
 func (value Uint10) Verify() bool {
 	return value < 1024
+}
+// ToInt10 converts the value to a singed int with 10 bits
+func (value Uint10) ToInt10() Int10 {
+    return Int10(value) << 6 >> 6
+}
+// ToUint10 converts the value to an usinged int with 10 bits
+func (value Int10) ToUint10() Uint10 {
+    return Uint10(value) << 6 >> 6
 }
 // Int11 represents an signed 11 bit integer.
 type Int11 int16
@@ -153,6 +202,14 @@ type Uint11 uint16
 func (value Uint11) Verify() bool {
 	return value < 2048
 }
+// ToInt11 converts the value to a singed int with 11 bits
+func (value Uint11) ToInt11() Int11 {
+    return Int11(value) << 5 >> 5
+}
+// ToUint11 converts the value to an usinged int with 11 bits
+func (value Int11) ToUint11() Uint11 {
+    return Uint11(value) << 5 >> 5
+}
 // Int12 represents an signed 12 bit integer.
 type Int12 int16
 
@@ -167,6 +224,14 @@ type Uint12 uint16
 // Verify checks that value is in range of a 12 bit unsigned integer
 func (value Uint12) Verify() bool {
 	return value < 4096
+}
+// ToInt12 converts the value to a singed int with 12 bits
+func (value Uint12) ToInt12() Int12 {
+    return Int12(value) << 4 >> 4
+}
+// ToUint12 converts the value to an usinged int with 12 bits
+func (value Int12) ToUint12() Uint12 {
+    return Uint12(value) << 4 >> 4
 }
 // Int13 represents an signed 13 bit integer.
 type Int13 int16
@@ -183,6 +248,14 @@ type Uint13 uint16
 func (value Uint13) Verify() bool {
 	return value < 8192
 }
+// ToInt13 converts the value to a singed int with 13 bits
+func (value Uint13) ToInt13() Int13 {
+    return Int13(value) << 3 >> 3
+}
+// ToUint13 converts the value to an usinged int with 13 bits
+func (value Int13) ToUint13() Uint13 {
+    return Uint13(value) << 3 >> 3
+}
 // Int14 represents an signed 14 bit integer.
 type Int14 int16
 
@@ -197,6 +270,14 @@ type Uint14 uint16
 // Verify checks that value is in range of a 14 bit unsigned integer
 func (value Uint14) Verify() bool {
 	return value < 16384
+}
+// ToInt14 converts the value to a singed int with 14 bits
+func (value Uint14) ToInt14() Int14 {
+    return Int14(value) << 2 >> 2
+}
+// ToUint14 converts the value to an usinged int with 14 bits
+func (value Int14) ToUint14() Uint14 {
+    return Uint14(value) << 2 >> 2
 }
 // Int15 represents an signed 15 bit integer.
 type Int15 int16
@@ -213,20 +294,13 @@ type Uint15 uint16
 func (value Uint15) Verify() bool {
 	return value < 32768
 }
-// Int16 represents an signed 16 bit integer.
-type Int16 int32
-
-// Verify checks that value is in range of a 16 bit signed integer
-func (value Int16) Verify() bool {
-	return value < 32768 && value >= -32768
+// ToInt15 converts the value to a singed int with 15 bits
+func (value Uint15) ToInt15() Int15 {
+    return Int15(value) << 1 >> 1
 }
-
-// Uint16 represents an unsigned 16 bit integer.
-type Uint16 uint32
-
-// Verify checks that value is in range of a 16 bit unsigned integer
-func (value Uint16) Verify() bool {
-	return value < 65536
+// ToUint15 converts the value to an usinged int with 15 bits
+func (value Int15) ToUint15() Uint15 {
+    return Uint15(value) << 1 >> 1
 }
 // Int17 represents an signed 17 bit integer.
 type Int17 int32
@@ -243,6 +317,14 @@ type Uint17 uint32
 func (value Uint17) Verify() bool {
 	return value < 131072
 }
+// ToInt17 converts the value to a singed int with 17 bits
+func (value Uint17) ToInt17() Int17 {
+    return Int17(value) << 15 >> 15
+}
+// ToUint17 converts the value to an usinged int with 17 bits
+func (value Int17) ToUint17() Uint17 {
+    return Uint17(value) << 15 >> 15
+}
 // Int18 represents an signed 18 bit integer.
 type Int18 int32
 
@@ -257,6 +339,14 @@ type Uint18 uint32
 // Verify checks that value is in range of a 18 bit unsigned integer
 func (value Uint18) Verify() bool {
 	return value < 262144
+}
+// ToInt18 converts the value to a singed int with 18 bits
+func (value Uint18) ToInt18() Int18 {
+    return Int18(value) << 14 >> 14
+}
+// ToUint18 converts the value to an usinged int with 18 bits
+func (value Int18) ToUint18() Uint18 {
+    return Uint18(value) << 14 >> 14
 }
 // Int19 represents an signed 19 bit integer.
 type Int19 int32
@@ -273,6 +363,14 @@ type Uint19 uint32
 func (value Uint19) Verify() bool {
 	return value < 524288
 }
+// ToInt19 converts the value to a singed int with 19 bits
+func (value Uint19) ToInt19() Int19 {
+    return Int19(value) << 13 >> 13
+}
+// ToUint19 converts the value to an usinged int with 19 bits
+func (value Int19) ToUint19() Uint19 {
+    return Uint19(value) << 13 >> 13
+}
 // Int20 represents an signed 20 bit integer.
 type Int20 int32
 
@@ -287,6 +385,14 @@ type Uint20 uint32
 // Verify checks that value is in range of a 20 bit unsigned integer
 func (value Uint20) Verify() bool {
 	return value < 1048576
+}
+// ToInt20 converts the value to a singed int with 20 bits
+func (value Uint20) ToInt20() Int20 {
+    return Int20(value) << 12 >> 12
+}
+// ToUint20 converts the value to an usinged int with 20 bits
+func (value Int20) ToUint20() Uint20 {
+    return Uint20(value) << 12 >> 12
 }
 // Int21 represents an signed 21 bit integer.
 type Int21 int32
@@ -303,6 +409,14 @@ type Uint21 uint32
 func (value Uint21) Verify() bool {
 	return value < 2097152
 }
+// ToInt21 converts the value to a singed int with 21 bits
+func (value Uint21) ToInt21() Int21 {
+    return Int21(value) << 11 >> 11
+}
+// ToUint21 converts the value to an usinged int with 21 bits
+func (value Int21) ToUint21() Uint21 {
+    return Uint21(value) << 11 >> 11
+}
 // Int22 represents an signed 22 bit integer.
 type Int22 int32
 
@@ -317,6 +431,14 @@ type Uint22 uint32
 // Verify checks that value is in range of a 22 bit unsigned integer
 func (value Uint22) Verify() bool {
 	return value < 4194304
+}
+// ToInt22 converts the value to a singed int with 22 bits
+func (value Uint22) ToInt22() Int22 {
+    return Int22(value) << 10 >> 10
+}
+// ToUint22 converts the value to an usinged int with 22 bits
+func (value Int22) ToUint22() Uint22 {
+    return Uint22(value) << 10 >> 10
 }
 // Int23 represents an signed 23 bit integer.
 type Int23 int32
@@ -333,6 +455,14 @@ type Uint23 uint32
 func (value Uint23) Verify() bool {
 	return value < 8388608
 }
+// ToInt23 converts the value to a singed int with 23 bits
+func (value Uint23) ToInt23() Int23 {
+    return Int23(value) << 9 >> 9
+}
+// ToUint23 converts the value to an usinged int with 23 bits
+func (value Int23) ToUint23() Uint23 {
+    return Uint23(value) << 9 >> 9
+}
 // Int24 represents an signed 24 bit integer.
 type Int24 int32
 
@@ -347,6 +477,14 @@ type Uint24 uint32
 // Verify checks that value is in range of a 24 bit unsigned integer
 func (value Uint24) Verify() bool {
 	return value < 16777216
+}
+// ToInt24 converts the value to a singed int with 24 bits
+func (value Uint24) ToInt24() Int24 {
+    return Int24(value) << 8 >> 8
+}
+// ToUint24 converts the value to an usinged int with 24 bits
+func (value Int24) ToUint24() Uint24 {
+    return Uint24(value) << 8 >> 8
 }
 // Int25 represents an signed 25 bit integer.
 type Int25 int32
@@ -363,6 +501,14 @@ type Uint25 uint32
 func (value Uint25) Verify() bool {
 	return value < 33554432
 }
+// ToInt25 converts the value to a singed int with 25 bits
+func (value Uint25) ToInt25() Int25 {
+    return Int25(value) << 7 >> 7
+}
+// ToUint25 converts the value to an usinged int with 25 bits
+func (value Int25) ToUint25() Uint25 {
+    return Uint25(value) << 7 >> 7
+}
 // Int26 represents an signed 26 bit integer.
 type Int26 int32
 
@@ -377,6 +523,14 @@ type Uint26 uint32
 // Verify checks that value is in range of a 26 bit unsigned integer
 func (value Uint26) Verify() bool {
 	return value < 67108864
+}
+// ToInt26 converts the value to a singed int with 26 bits
+func (value Uint26) ToInt26() Int26 {
+    return Int26(value) << 6 >> 6
+}
+// ToUint26 converts the value to an usinged int with 26 bits
+func (value Int26) ToUint26() Uint26 {
+    return Uint26(value) << 6 >> 6
 }
 // Int27 represents an signed 27 bit integer.
 type Int27 int32
@@ -393,6 +547,14 @@ type Uint27 uint32
 func (value Uint27) Verify() bool {
 	return value < 134217728
 }
+// ToInt27 converts the value to a singed int with 27 bits
+func (value Uint27) ToInt27() Int27 {
+    return Int27(value) << 5 >> 5
+}
+// ToUint27 converts the value to an usinged int with 27 bits
+func (value Int27) ToUint27() Uint27 {
+    return Uint27(value) << 5 >> 5
+}
 // Int28 represents an signed 28 bit integer.
 type Int28 int32
 
@@ -407,6 +569,14 @@ type Uint28 uint32
 // Verify checks that value is in range of a 28 bit unsigned integer
 func (value Uint28) Verify() bool {
 	return value < 268435456
+}
+// ToInt28 converts the value to a singed int with 28 bits
+func (value Uint28) ToInt28() Int28 {
+    return Int28(value) << 4 >> 4
+}
+// ToUint28 converts the value to an usinged int with 28 bits
+func (value Int28) ToUint28() Uint28 {
+    return Uint28(value) << 4 >> 4
 }
 // Int29 represents an signed 29 bit integer.
 type Int29 int32
@@ -423,6 +593,14 @@ type Uint29 uint32
 func (value Uint29) Verify() bool {
 	return value < 536870912
 }
+// ToInt29 converts the value to a singed int with 29 bits
+func (value Uint29) ToInt29() Int29 {
+    return Int29(value) << 3 >> 3
+}
+// ToUint29 converts the value to an usinged int with 29 bits
+func (value Int29) ToUint29() Uint29 {
+    return Uint29(value) << 3 >> 3
+}
 // Int30 represents an signed 30 bit integer.
 type Int30 int32
 
@@ -437,6 +615,14 @@ type Uint30 uint32
 // Verify checks that value is in range of a 30 bit unsigned integer
 func (value Uint30) Verify() bool {
 	return value < 1073741824
+}
+// ToInt30 converts the value to a singed int with 30 bits
+func (value Uint30) ToInt30() Int30 {
+    return Int30(value) << 2 >> 2
+}
+// ToUint30 converts the value to an usinged int with 30 bits
+func (value Int30) ToUint30() Uint30 {
+    return Uint30(value) << 2 >> 2
 }
 // Int31 represents an signed 31 bit integer.
 type Int31 int32
@@ -453,20 +639,13 @@ type Uint31 uint32
 func (value Uint31) Verify() bool {
 	return value < 2147483648
 }
-// Int32 represents an signed 32 bit integer.
-type Int32 int64
-
-// Verify checks that value is in range of a 32 bit signed integer
-func (value Int32) Verify() bool {
-	return value < 2147483648 && value >= -2147483648
+// ToInt31 converts the value to a singed int with 31 bits
+func (value Uint31) ToInt31() Int31 {
+    return Int31(value) << 1 >> 1
 }
-
-// Uint32 represents an unsigned 32 bit integer.
-type Uint32 uint64
-
-// Verify checks that value is in range of a 32 bit unsigned integer
-func (value Uint32) Verify() bool {
-	return value < 4294967296
+// ToUint31 converts the value to an usinged int with 31 bits
+func (value Int31) ToUint31() Uint31 {
+    return Uint31(value) << 1 >> 1
 }
 // Int33 represents an signed 33 bit integer.
 type Int33 int64
@@ -483,6 +662,14 @@ type Uint33 uint64
 func (value Uint33) Verify() bool {
 	return value < 8589934592
 }
+// ToInt33 converts the value to a singed int with 33 bits
+func (value Uint33) ToInt33() Int33 {
+    return Int33(value) << 31 >> 31
+}
+// ToUint33 converts the value to an usinged int with 33 bits
+func (value Int33) ToUint33() Uint33 {
+    return Uint33(value) << 31 >> 31
+}
 // Int34 represents an signed 34 bit integer.
 type Int34 int64
 
@@ -497,6 +684,14 @@ type Uint34 uint64
 // Verify checks that value is in range of a 34 bit unsigned integer
 func (value Uint34) Verify() bool {
 	return value < 17179869184
+}
+// ToInt34 converts the value to a singed int with 34 bits
+func (value Uint34) ToInt34() Int34 {
+    return Int34(value) << 30 >> 30
+}
+// ToUint34 converts the value to an usinged int with 34 bits
+func (value Int34) ToUint34() Uint34 {
+    return Uint34(value) << 30 >> 30
 }
 // Int35 represents an signed 35 bit integer.
 type Int35 int64
@@ -513,6 +708,14 @@ type Uint35 uint64
 func (value Uint35) Verify() bool {
 	return value < 34359738368
 }
+// ToInt35 converts the value to a singed int with 35 bits
+func (value Uint35) ToInt35() Int35 {
+    return Int35(value) << 29 >> 29
+}
+// ToUint35 converts the value to an usinged int with 35 bits
+func (value Int35) ToUint35() Uint35 {
+    return Uint35(value) << 29 >> 29
+}
 // Int36 represents an signed 36 bit integer.
 type Int36 int64
 
@@ -527,6 +730,14 @@ type Uint36 uint64
 // Verify checks that value is in range of a 36 bit unsigned integer
 func (value Uint36) Verify() bool {
 	return value < 68719476736
+}
+// ToInt36 converts the value to a singed int with 36 bits
+func (value Uint36) ToInt36() Int36 {
+    return Int36(value) << 28 >> 28
+}
+// ToUint36 converts the value to an usinged int with 36 bits
+func (value Int36) ToUint36() Uint36 {
+    return Uint36(value) << 28 >> 28
 }
 // Int37 represents an signed 37 bit integer.
 type Int37 int64
@@ -543,6 +754,14 @@ type Uint37 uint64
 func (value Uint37) Verify() bool {
 	return value < 137438953472
 }
+// ToInt37 converts the value to a singed int with 37 bits
+func (value Uint37) ToInt37() Int37 {
+    return Int37(value) << 27 >> 27
+}
+// ToUint37 converts the value to an usinged int with 37 bits
+func (value Int37) ToUint37() Uint37 {
+    return Uint37(value) << 27 >> 27
+}
 // Int38 represents an signed 38 bit integer.
 type Int38 int64
 
@@ -557,6 +776,14 @@ type Uint38 uint64
 // Verify checks that value is in range of a 38 bit unsigned integer
 func (value Uint38) Verify() bool {
 	return value < 274877906944
+}
+// ToInt38 converts the value to a singed int with 38 bits
+func (value Uint38) ToInt38() Int38 {
+    return Int38(value) << 26 >> 26
+}
+// ToUint38 converts the value to an usinged int with 38 bits
+func (value Int38) ToUint38() Uint38 {
+    return Uint38(value) << 26 >> 26
 }
 // Int39 represents an signed 39 bit integer.
 type Int39 int64
@@ -573,6 +800,14 @@ type Uint39 uint64
 func (value Uint39) Verify() bool {
 	return value < 549755813888
 }
+// ToInt39 converts the value to a singed int with 39 bits
+func (value Uint39) ToInt39() Int39 {
+    return Int39(value) << 25 >> 25
+}
+// ToUint39 converts the value to an usinged int with 39 bits
+func (value Int39) ToUint39() Uint39 {
+    return Uint39(value) << 25 >> 25
+}
 // Int40 represents an signed 40 bit integer.
 type Int40 int64
 
@@ -587,6 +822,14 @@ type Uint40 uint64
 // Verify checks that value is in range of a 40 bit unsigned integer
 func (value Uint40) Verify() bool {
 	return value < 1099511627776
+}
+// ToInt40 converts the value to a singed int with 40 bits
+func (value Uint40) ToInt40() Int40 {
+    return Int40(value) << 24 >> 24
+}
+// ToUint40 converts the value to an usinged int with 40 bits
+func (value Int40) ToUint40() Uint40 {
+    return Uint40(value) << 24 >> 24
 }
 // Int41 represents an signed 41 bit integer.
 type Int41 int64
@@ -603,6 +846,14 @@ type Uint41 uint64
 func (value Uint41) Verify() bool {
 	return value < 2199023255552
 }
+// ToInt41 converts the value to a singed int with 41 bits
+func (value Uint41) ToInt41() Int41 {
+    return Int41(value) << 23 >> 23
+}
+// ToUint41 converts the value to an usinged int with 41 bits
+func (value Int41) ToUint41() Uint41 {
+    return Uint41(value) << 23 >> 23
+}
 // Int42 represents an signed 42 bit integer.
 type Int42 int64
 
@@ -617,6 +868,14 @@ type Uint42 uint64
 // Verify checks that value is in range of a 42 bit unsigned integer
 func (value Uint42) Verify() bool {
 	return value < 4398046511104
+}
+// ToInt42 converts the value to a singed int with 42 bits
+func (value Uint42) ToInt42() Int42 {
+    return Int42(value) << 22 >> 22
+}
+// ToUint42 converts the value to an usinged int with 42 bits
+func (value Int42) ToUint42() Uint42 {
+    return Uint42(value) << 22 >> 22
 }
 // Int43 represents an signed 43 bit integer.
 type Int43 int64
@@ -633,6 +892,14 @@ type Uint43 uint64
 func (value Uint43) Verify() bool {
 	return value < 8796093022208
 }
+// ToInt43 converts the value to a singed int with 43 bits
+func (value Uint43) ToInt43() Int43 {
+    return Int43(value) << 21 >> 21
+}
+// ToUint43 converts the value to an usinged int with 43 bits
+func (value Int43) ToUint43() Uint43 {
+    return Uint43(value) << 21 >> 21
+}
 // Int44 represents an signed 44 bit integer.
 type Int44 int64
 
@@ -647,6 +914,14 @@ type Uint44 uint64
 // Verify checks that value is in range of a 44 bit unsigned integer
 func (value Uint44) Verify() bool {
 	return value < 17592186044416
+}
+// ToInt44 converts the value to a singed int with 44 bits
+func (value Uint44) ToInt44() Int44 {
+    return Int44(value) << 20 >> 20
+}
+// ToUint44 converts the value to an usinged int with 44 bits
+func (value Int44) ToUint44() Uint44 {
+    return Uint44(value) << 20 >> 20
 }
 // Int45 represents an signed 45 bit integer.
 type Int45 int64
@@ -663,6 +938,14 @@ type Uint45 uint64
 func (value Uint45) Verify() bool {
 	return value < 35184372088832
 }
+// ToInt45 converts the value to a singed int with 45 bits
+func (value Uint45) ToInt45() Int45 {
+    return Int45(value) << 19 >> 19
+}
+// ToUint45 converts the value to an usinged int with 45 bits
+func (value Int45) ToUint45() Uint45 {
+    return Uint45(value) << 19 >> 19
+}
 // Int46 represents an signed 46 bit integer.
 type Int46 int64
 
@@ -677,6 +960,14 @@ type Uint46 uint64
 // Verify checks that value is in range of a 46 bit unsigned integer
 func (value Uint46) Verify() bool {
 	return value < 70368744177664
+}
+// ToInt46 converts the value to a singed int with 46 bits
+func (value Uint46) ToInt46() Int46 {
+    return Int46(value) << 18 >> 18
+}
+// ToUint46 converts the value to an usinged int with 46 bits
+func (value Int46) ToUint46() Uint46 {
+    return Uint46(value) << 18 >> 18
 }
 // Int47 represents an signed 47 bit integer.
 type Int47 int64
@@ -693,6 +984,14 @@ type Uint47 uint64
 func (value Uint47) Verify() bool {
 	return value < 140737488355328
 }
+// ToInt47 converts the value to a singed int with 47 bits
+func (value Uint47) ToInt47() Int47 {
+    return Int47(value) << 17 >> 17
+}
+// ToUint47 converts the value to an usinged int with 47 bits
+func (value Int47) ToUint47() Uint47 {
+    return Uint47(value) << 17 >> 17
+}
 // Int48 represents an signed 48 bit integer.
 type Int48 int64
 
@@ -707,6 +1006,14 @@ type Uint48 uint64
 // Verify checks that value is in range of a 48 bit unsigned integer
 func (value Uint48) Verify() bool {
 	return value < 281474976710656
+}
+// ToInt48 converts the value to a singed int with 48 bits
+func (value Uint48) ToInt48() Int48 {
+    return Int48(value) << 16 >> 16
+}
+// ToUint48 converts the value to an usinged int with 48 bits
+func (value Int48) ToUint48() Uint48 {
+    return Uint48(value) << 16 >> 16
 }
 // Int49 represents an signed 49 bit integer.
 type Int49 int64
@@ -723,6 +1030,14 @@ type Uint49 uint64
 func (value Uint49) Verify() bool {
 	return value < 562949953421312
 }
+// ToInt49 converts the value to a singed int with 49 bits
+func (value Uint49) ToInt49() Int49 {
+    return Int49(value) << 15 >> 15
+}
+// ToUint49 converts the value to an usinged int with 49 bits
+func (value Int49) ToUint49() Uint49 {
+    return Uint49(value) << 15 >> 15
+}
 // Int50 represents an signed 50 bit integer.
 type Int50 int64
 
@@ -737,6 +1052,14 @@ type Uint50 uint64
 // Verify checks that value is in range of a 50 bit unsigned integer
 func (value Uint50) Verify() bool {
 	return value < 1125899906842624
+}
+// ToInt50 converts the value to a singed int with 50 bits
+func (value Uint50) ToInt50() Int50 {
+    return Int50(value) << 14 >> 14
+}
+// ToUint50 converts the value to an usinged int with 50 bits
+func (value Int50) ToUint50() Uint50 {
+    return Uint50(value) << 14 >> 14
 }
 // Int51 represents an signed 51 bit integer.
 type Int51 int64
@@ -753,6 +1076,14 @@ type Uint51 uint64
 func (value Uint51) Verify() bool {
 	return value < 2251799813685248
 }
+// ToInt51 converts the value to a singed int with 51 bits
+func (value Uint51) ToInt51() Int51 {
+    return Int51(value) << 13 >> 13
+}
+// ToUint51 converts the value to an usinged int with 51 bits
+func (value Int51) ToUint51() Uint51 {
+    return Uint51(value) << 13 >> 13
+}
 // Int52 represents an signed 52 bit integer.
 type Int52 int64
 
@@ -767,6 +1098,14 @@ type Uint52 uint64
 // Verify checks that value is in range of a 52 bit unsigned integer
 func (value Uint52) Verify() bool {
 	return value < 4503599627370496
+}
+// ToInt52 converts the value to a singed int with 52 bits
+func (value Uint52) ToInt52() Int52 {
+    return Int52(value) << 12 >> 12
+}
+// ToUint52 converts the value to an usinged int with 52 bits
+func (value Int52) ToUint52() Uint52 {
+    return Uint52(value) << 12 >> 12
 }
 // Int53 represents an signed 53 bit integer.
 type Int53 int64
@@ -783,6 +1122,14 @@ type Uint53 uint64
 func (value Uint53) Verify() bool {
 	return value < 9007199254740992
 }
+// ToInt53 converts the value to a singed int with 53 bits
+func (value Uint53) ToInt53() Int53 {
+    return Int53(value) << 11 >> 11
+}
+// ToUint53 converts the value to an usinged int with 53 bits
+func (value Int53) ToUint53() Uint53 {
+    return Uint53(value) << 11 >> 11
+}
 // Int54 represents an signed 54 bit integer.
 type Int54 int64
 
@@ -797,6 +1144,14 @@ type Uint54 uint64
 // Verify checks that value is in range of a 54 bit unsigned integer
 func (value Uint54) Verify() bool {
 	return value < 18014398509481984
+}
+// ToInt54 converts the value to a singed int with 54 bits
+func (value Uint54) ToInt54() Int54 {
+    return Int54(value) << 10 >> 10
+}
+// ToUint54 converts the value to an usinged int with 54 bits
+func (value Int54) ToUint54() Uint54 {
+    return Uint54(value) << 10 >> 10
 }
 // Int55 represents an signed 55 bit integer.
 type Int55 int64
@@ -813,6 +1168,14 @@ type Uint55 uint64
 func (value Uint55) Verify() bool {
 	return value < 36028797018963968
 }
+// ToInt55 converts the value to a singed int with 55 bits
+func (value Uint55) ToInt55() Int55 {
+    return Int55(value) << 9 >> 9
+}
+// ToUint55 converts the value to an usinged int with 55 bits
+func (value Int55) ToUint55() Uint55 {
+    return Uint55(value) << 9 >> 9
+}
 // Int56 represents an signed 56 bit integer.
 type Int56 int64
 
@@ -827,6 +1190,14 @@ type Uint56 uint64
 // Verify checks that value is in range of a 56 bit unsigned integer
 func (value Uint56) Verify() bool {
 	return value < 72057594037927936
+}
+// ToInt56 converts the value to a singed int with 56 bits
+func (value Uint56) ToInt56() Int56 {
+    return Int56(value) << 8 >> 8
+}
+// ToUint56 converts the value to an usinged int with 56 bits
+func (value Int56) ToUint56() Uint56 {
+    return Uint56(value) << 8 >> 8
 }
 // Int57 represents an signed 57 bit integer.
 type Int57 int64
@@ -843,6 +1214,14 @@ type Uint57 uint64
 func (value Uint57) Verify() bool {
 	return value < 144115188075855872
 }
+// ToInt57 converts the value to a singed int with 57 bits
+func (value Uint57) ToInt57() Int57 {
+    return Int57(value) << 7 >> 7
+}
+// ToUint57 converts the value to an usinged int with 57 bits
+func (value Int57) ToUint57() Uint57 {
+    return Uint57(value) << 7 >> 7
+}
 // Int58 represents an signed 58 bit integer.
 type Int58 int64
 
@@ -857,6 +1236,14 @@ type Uint58 uint64
 // Verify checks that value is in range of a 58 bit unsigned integer
 func (value Uint58) Verify() bool {
 	return value < 288230376151711744
+}
+// ToInt58 converts the value to a singed int with 58 bits
+func (value Uint58) ToInt58() Int58 {
+    return Int58(value) << 6 >> 6
+}
+// ToUint58 converts the value to an usinged int with 58 bits
+func (value Int58) ToUint58() Uint58 {
+    return Uint58(value) << 6 >> 6
 }
 // Int59 represents an signed 59 bit integer.
 type Int59 int64
@@ -873,6 +1260,14 @@ type Uint59 uint64
 func (value Uint59) Verify() bool {
 	return value < 576460752303423488
 }
+// ToInt59 converts the value to a singed int with 59 bits
+func (value Uint59) ToInt59() Int59 {
+    return Int59(value) << 5 >> 5
+}
+// ToUint59 converts the value to an usinged int with 59 bits
+func (value Int59) ToUint59() Uint59 {
+    return Uint59(value) << 5 >> 5
+}
 // Int60 represents an signed 60 bit integer.
 type Int60 int64
 
@@ -887,6 +1282,14 @@ type Uint60 uint64
 // Verify checks that value is in range of a 60 bit unsigned integer
 func (value Uint60) Verify() bool {
 	return value < 1152921504606846976
+}
+// ToInt60 converts the value to a singed int with 60 bits
+func (value Uint60) ToInt60() Int60 {
+    return Int60(value) << 4 >> 4
+}
+// ToUint60 converts the value to an usinged int with 60 bits
+func (value Int60) ToUint60() Uint60 {
+    return Uint60(value) << 4 >> 4
 }
 // Int61 represents an signed 61 bit integer.
 type Int61 int64
@@ -903,6 +1306,14 @@ type Uint61 uint64
 func (value Uint61) Verify() bool {
 	return value < 2305843009213693952
 }
+// ToInt61 converts the value to a singed int with 61 bits
+func (value Uint61) ToInt61() Int61 {
+    return Int61(value) << 3 >> 3
+}
+// ToUint61 converts the value to an usinged int with 61 bits
+func (value Int61) ToUint61() Uint61 {
+    return Uint61(value) << 3 >> 3
+}
 // Int62 represents an signed 62 bit integer.
 type Int62 int64
 
@@ -918,6 +1329,14 @@ type Uint62 uint64
 func (value Uint62) Verify() bool {
 	return value < 4611686018427387904
 }
+// ToInt62 converts the value to a singed int with 62 bits
+func (value Uint62) ToInt62() Int62 {
+    return Int62(value) << 2 >> 2
+}
+// ToUint62 converts the value to an usinged int with 62 bits
+func (value Int62) ToUint62() Uint62 {
+    return Uint62(value) << 2 >> 2
+}
 // Int63 represents an signed 63 bit integer.
 type Int63 int64
 
@@ -932,4 +1351,12 @@ type Uint63 uint64
 // Verify checks that value is in range of a 63 bit unsigned integer
 func (value Uint63) Verify() bool {
 	return value < 9223372036854775808
+}
+// ToInt63 converts the value to a singed int with 63 bits
+func (value Uint63) ToInt63() Int63 {
+    return Int63(value) << 1 >> 1
+}
+// ToUint63 converts the value to an usinged int with 63 bits
+func (value Int63) ToUint63() Uint63 {
+    return Uint63(value) << 1 >> 1
 }

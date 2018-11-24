@@ -25,6 +25,7 @@ func (cw *codcwriter) writeln(format string, args ...interface{}) {
 func (cw *codcwriter) writeForSize(size uint, base uint) {
 	signedVal := uint64(1) << (size - 1)
 	unsingedVal := uint64(1) << size
+	diffSize := base - size
 	cw.writeln("// Int%v represents an signed %v bit integer.", size, size)
 	cw.writeln("type Int%v int%v\n", size, base)
 	cw.writeln("// Verify checks that value is in range of a %v bit signed integer", size)
@@ -38,7 +39,14 @@ func (cw *codcwriter) writeForSize(size uint, base uint) {
 	cw.writeln("func (value Uint%v) Verify() bool {", size)
 	cw.writeln("	return value < %v", unsingedVal)
 	cw.writeln("}")
-
+	cw.writeln("// ToInt%v converts the value to a singed int with %v bits", size, size)
+	cw.writeln("func (value Uint%v) ToInt%v() Int%v {", size, size, size)
+	cw.writeln("    return Int%v(value) << %v >> %v", size, diffSize, diffSize)
+	cw.writeln("}")
+	cw.writeln("// ToUint%v converts the value to an usinged int with %v bits", size, size)
+	cw.writeln("func (value Int%v) ToUint%v() Uint%v {", size, size, size)
+	cw.writeln("    return Uint%v(value) << %v >> %v", size, diffSize, diffSize)
+	cw.writeln("}")
 }
 
 // This file is tested via tests of the output
@@ -64,6 +72,7 @@ func main() {
 		for ; size < base; size++ {
 			cw.writeForSize(size, base)
 		}
+		size++
 	}
 
 	if cw.err != nil {
