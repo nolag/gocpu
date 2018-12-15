@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var anyIndex = uint64(1003)
 var any8BitUint = uint8(0xFA)
 var any16BitUint = uint16(0xBEEF)
 var any32BitUint = uint32(0xC001BABE)

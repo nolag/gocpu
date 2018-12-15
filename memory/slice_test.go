@@ -4,16 +4,17 @@ import (
 	"testing"
 
 	"github.com/nolag/gocpu/memory"
+	"github.com/nolag/gocpu/memory/testhelper"
 )
 
 func TestRunReadWriteTest(t *testing.T) {
-	RunReadWriteTest(t, true, memory.NewSlice)
+	testhelper.RunReadWriteTest(t, true, memory.NewSlice)
 }
 
 func TestNewMeorySliceCreatesMemoryWithCorrectSize(t *testing.T) {
-	RunSizeTest(t, memory.NewSlice)
+	testhelper.RunSizeTest(t, memory.NewSlice)
 }
 
 func TestSliceBoundsChceking(t *testing.T) {
-	RunBoundsTests(t, memory.NewSlice)
+	testhelper.RunBoundsTests(t, memory.NewSlice)
 }
