@@ -7,7 +7,7 @@ package processor
 // instructionUint8 represents an instruction
 type instructionUint8 uint8
 
-// InstructionRunnerUint8 runs an InstructioninstructionpcType
+// InstructionRunnerUint8 runs an instruction
 type InstructionRunnerUint8 interface {
 	// RunUint8 runs a single instrution (without incrementing the PC for its own read)
 	RunUint8(instruction uint8) error
@@ -16,7 +16,7 @@ type InstructionRunnerUint8 interface {
 // instructionUint16 represents an instruction
 type instructionUint16 uint16
 
-// InstructionRunnerUint16 runs an InstructioninstructionpcType
+// InstructionRunnerUint16 runs an instruction
 type InstructionRunnerUint16 interface {
 	// RunUint16 runs a single instrution (without incrementing the PC for its own read)
 	RunUint16(instruction uint16) error
@@ -25,7 +25,7 @@ type InstructionRunnerUint16 interface {
 // instructionUint32 represents an instruction
 type instructionUint32 uint32
 
-// InstructionRunnerUint32 runs an InstructioninstructionpcType
+// InstructionRunnerUint32 runs an instruction
 type InstructionRunnerUint32 interface {
 	// RunUint32 runs a single instrution (without incrementing the PC for its own read)
 	RunUint32(instruction uint32) error
@@ -34,7 +34,7 @@ type InstructionRunnerUint32 interface {
 // instructionUint64 represents an instruction
 type instructionUint64 uint64
 
-// InstructionRunnerUint64 runs an InstructioninstructionpcType
+// InstructionRunnerUint64 runs an instruction
 type InstructionRunnerUint64 interface {
 	// RunUint64 runs a single instrution (without incrementing the PC for its own read)
 	RunUint64(instruction uint64) error
